@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<%- include('../Partials/Header')%>
+<body>
+  <%- include('../Partials/Navbar')%>
+  <%- include('../Partials/Sidebar')%>
+
+	<div class="main-container">
+		<div class="pd-ltr-20">
+      				<!-- Form grid Start -->
+				<div class="pd-20 card-box mb-30">
+					<div class="clearfix">
+						<div class="pull-left">
+							<h4 class="text-blue h4">ຟອມປ້ອນຂໍ້ມູນປະເພດຕ່າງໆ</h4>
+						</div>
+						<div class="pull-right">
+							<a href="/category" class="btn btn-outline-primary btn-sm scroll-click">ກັບຄືນ</a>
+						</div>
+					</div>
+					<form action="/category/edit/<%= id %>" method="POST">
+						<div class="row">
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ຊື່ປະເພດ</label>
+									<input type="text" name="name" id="name" value="<%= name %>" class="form-control" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 col-sm-12">
+								<div class="form-group">
+									<label>ອະທິບາຍກ່ຽວກັບປະເພດ</label>
+									<input type="text" name="desc" id="desc" value="<%= desc %>" class="form-control">
+								</div>
+							</div>
+						</div>
+            <button type="submit" class="btn btn-outline-primary">Update</button>
+						</div>
+					</form>
+          <div class="collapse collapse-box" id="form-grid-form" >
+						<div class="code-box">
+							<div class="clearfix">
+								<a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left"  data-clipboard-target="#form-grid"><i class="fa fa-clipboard"></i> Copy Code</a>
+								<a href="#form-grid-form" class="btn btn-primary btn-sm pull-right" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
+							</div>
+							<pre>
+								<code class="xml copy-pre" id="form-grid">
+								</code>
+							</pre>
+						</div>
+					</div>
+      <%- include('../Partials/Footer')%>
+		</div>
+	</div>
+  <%- include('../Partials/Script') %>
+</body>
+</html>

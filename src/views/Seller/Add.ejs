@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<%- include('../Partials/Header')%>
+<body>
+  <%- include('../Partials/Navbar')%>
+  <%- include('../Partials/Sidebar')%>
+
+	<div class="main-container">
+		<div class="pd-ltr-20">
+      				<!-- Form grid Start -->
+				<div class="pd-20 card-box mb-30">
+					<div class="clearfix">
+						<div class="pull-left">
+							<h4 class="text-blue h4">ຟອມປ້ອນຂໍ້ມູນແມ່ຄ້າ</h4>
+						</div>
+						<!-- <div class="pull-right">
+							<a href="#form-grid-form" class="btn btn-primary btn-sm scroll-click" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-code"></i> Source Code</a>
+						</div> -->
+					</div>
+					<form action="/seller/add" method="POST">
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group">
+									<label>ຊື່ແມ່ຄ້າ</label>
+									<input type="text" name="name" id="name" class="form-control" placeholder="e.g ນາງ ກ, ຫຼື ທ້າວ ຂ..." required>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-12">						
+								<div class="form-group">
+									<label>ປະຈຳຢູ່ເຂດ</label>
+										<select class="custom-select2 form-control" name="village" style="width: 100%; height: 35px;">
+											<% villages.forEach(function(village) { %>
+												<option value="<%= village.id %>"><%= village.area %></option>
+											<% }) %>
+										</select>
+								</div>
+							</div>
+						</div>
+            <div class="row">
+							<div class="col-md-12 col-sm-12">
+								<div class="form-group">
+									<label>ທີຢູ່ປະຈຸບັນ</label>
+									<input type="text" name="address" id="address" class="form-control" placeholder="e.g ບ້ານ ດົງໂດກ, ເມື່ອງ ໄຊທ່ານີ, ແຂວງ ນະຄອນຫຼວງວຽງຈັນ...">
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ເບີໂທຕິດຕໍ່</label>
+									<input type="text" name="contact" id="contact" class="form-control" placeholder="e.g 020-2345-6789">
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ເບີໂທຕິດຕໍ່ສຳຮອງ</label>
+									<input type="text" name="phone" id="phone" class="form-control" placeholder="e.g 030 234-5678">
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ວັນເດືອນປີເຂົາຮ່ວມ</label>
+									<input type="date" name="joinAt" id="joinAt" class="form-control" placeholder="e.g ວັນ-ເດືອນ-ປີ" />
+								</div>
+							</div>
+						</div>
+            <button type="submit" class="btn btn-outline-primary">ຈັດເກັບ</button>
+						</div>
+					</form>
+					<div class="collapse collapse-box" id="form-grid-form" >
+						<div class="code-box">
+							<div class="clearfix">
+							<a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left"  data-clipboard-target="#form-grid"><i class="fa fa-clipboard"></i> Copy Code</a>
+						<a href="#form-grid-form" class="btn btn-primary btn-sm pull-right" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
+					</div>
+					<pre><code class="xml copy-pre" id="form-grid">
+      <%- include('../Partials/Footer')%>
+		</div>
+	</div>
+  <%- include('../Partials/Script') %>
+</body>
+</html>

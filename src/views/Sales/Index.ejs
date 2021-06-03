@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<%- include('../Partials/Header')%>
+<body>
+  <%- include('../Partials/Navbar')%>
+  <%- include('../Partials/sellerSide')%>
+
+	<div class="main-container">
+		<div class="pd-ltr-20">
+			<div class="card-box mb-30">
+				<h2 class="h4 pd-20">ຂໍ້ມູນຍອດຂ່າຍທັງຫມົດ</h2>
+				<table class="table hover multiple-select-row nowrap">
+					<thead>
+						<tr>
+							<!-- <th>ວັນເດືອນປີເຂົາສະມາຊິກ</th> -->
+							<th>ຊື່ແມ່ຄ້າ</th>
+              <!-- <th>ເບີໂທ</th>
+							<th>ທີຢູ່</th>
+							<th>ຫມາຍເຫດ</th> -->
+							<th class="datatable-nosort">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% sellers.forEach(function(seller) { %>
+							<tr>
+								<!-- <td><%= seller.joinAt.toLocaleDateString() %></td> -->
+								<td>
+									<h5 class="font-16"><%= seller.name %></h5>
+								</td>
+								<!-- <td><%= seller.contact %></td>
+								<td><%= seller.address %></td>
+								<td></td> -->
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="dw dw-more"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+											<a class="dropdown-item" href="/sales/report/<%= seller.id %>"><i class="dw dw-eye"></i>ເບີ່ງຍອດຂ່າຍ</a>
+											<a class="dropdown-item" href="/sales/add/<%= seller.id %>"><i class="dw dw-edit2"></i>ສ້າງຍອດຂ່າຍ</a>
+	
+										</div>
+									</div>
+								</td>
+							</tr>
+						<% }) %>					
+					</tbody>
+				</table>
+			</div>
+      <%- include('../Partials/Footer')%>
+		</div>
+	</div>
+  <%- include('../Partials/Script') %>
+</body>
+</html>

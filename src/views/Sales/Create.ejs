@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<%- include('../Partials/Header')%>
+<body>
+  <%- include('../Partials/Navbar')%>
+  <%- include('../Partials/sellerSide')%>
+
+	<div class="main-container">
+		<div class="pd-ltr-20">
+			<div class="card-box mb-30">
+			<h2 class="h4 pd-20">ສ້າງຍອດຂ່າຍປະຈຳວັນ</h2>
+        				<!-- Select-2 Start -->
+				<div class="pd-20 card-box mb-30">
+					<form action="/sales/add" method="POST">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>ຊື່ແມ່ຄ້າ</label>
+									<input type="hidden" name="seller" id="seller" class="form-control" value="<%= id %>" required>
+									<input type="text" class="form-control" value="<%= name %>" disabled required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>ເລືອກສິນຄ້າທີຂ່າຍແລ້ວ</label>
+									<select class="custom-select2 form-control" name="vegetables" multiple="multiple" style="width: 100%;" required>
+										<% vegetables.forEach(function(veget){ %>
+											<option value="<%= veget.vegetable.id %>"><%= veget.vegetable.name %></option>
+										<% }) %>
+									</select>
+								</div>
+							</div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>ອະທິບາຍລະອຽດ</label>
+                  <textarea class="form-control" name="desc" id="desc"></textarea>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-4 col-sm-12">
+                    <div class="form-group">
+                      <label>ຈຳນວນຂ່າຍທັງຫມົດ:</label>
+                      <input type="number" name="qty_sales" id="qty_sales" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <div class="form-group">
+                      <label>ລວມເປັນເງີນ:</label>
+                      <input type="number" name="sale_amount" id="sale_amount" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <div class="form-group">
+                      <label>ຈຳນວນທີຍັງເຫຼືອ:</label>
+                      <input type="number" name="stock_qty" id="stock_qty" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-outline-primary">ຈັດເກັບ</button>
+              </div>
+						</div>
+					</form>
+				</div>
+				<!-- Select-2 end -->
+			</div>
+      <%- include('../Partials/Footer')%>
+		</div>
+	</div>
+  <%- include('../Partials/Script') %>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<%- include('../Partials/Header')%>
+<body>
+  <%- include('../Partials/Navbar')%>
+  <%- include('../Partials/Sidebar')%>
+
+	<div class="main-container">
+		<div class="pd-ltr-20">
+			<div class="card-box mb-30">
+				<div class="clearfix">
+          <div class="pull-left">
+            <h2 class="h4 pd-20">ສີນຄ້າຜັກທັງຫມົດ</h2>
+          </div>
+          <div class="pull-right">
+            <a href="/vegetable/add" class="btn btn-outline-primary btn-sm scroll-click" >ເພີ່ມຂໍ້ມູນຜັກ</a>
+          </div>
+        </div> 
+				<table class="data-table table nowrap">
+					<thead>
+						<tr>
+							<th class="table-plus datatable-nosort">ຮູບພາບ</th>
+							<th>ຊື່ພັກ</th>
+							<th>ປະເພດຜັກ</th>
+							<th>ລາຍລະອຽດ</th>
+							<th>ລາຄາ</th>
+							<th>ຈຳນວນ</th>
+							<th class="datatable-nosort">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% vegetables.forEach(function(vegetable){ %>
+							<tr>
+								<td class="table-plus">
+									<img src="data:image/<%= vegetable.image.contentType%>;base64, <%= vegetable.image.data.toString('base64')%>" width="70" height="70" alt="">
+								</td>
+								<td>
+									<h5 class="font-16"><%= vegetable.name %></h5>
+								</td>
+								<td><%= vegetable.category.name %></td>
+								<td><%= vegetable.desc %></td>
+								<td><%= vegetable.price %> k</td>
+								<td><%= vegetable.qty %></td>
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="dw dw-more"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+											<a class="dropdown-item" href="/vegetable"><i class="dw dw-eye"></i> View</a>
+											<a class="dropdown-item" href="/vegetable/edit/<%= vegetable.id %>"><i class="dw dw-edit2"></i> Edit</a>
+											<a class="dropdown-item" href="/vegetable/delete/<%= vegetable.id %>"><i class="dw dw-delete-3"></i> Delete</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						<% }) %>
+					</tbody>
+				</table>
+			</div>
+      <%- include('../Partials/Footer')%>
+		</div>
+	</div>
+  <%- include('../Partials/Script') %>
+</body>
+</html>

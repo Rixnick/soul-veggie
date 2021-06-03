@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<%- include('../Partials/Header')%>
+<body>
+  <%- include('../Partials/Navbar')%>
+  <%- include('../Partials/Sidebar')%>
+	<div class="main-container">
+		<div class="pd-ltr-20 xs-pd-20-10">
+			<div class="min-height-200px">
+				<!-- multiple select row Datatable start -->
+        <div class="card-box mb-30">    
+          <div class="clearfix">
+            <div class="pull-left">
+              <h2 class="h4 pd-20">ລາຍການຂໍ້ມູນແມ່ຄ້າ</h2>
+            </div>
+            <div class="pull-right">
+              <a href="/seller/add" class="btn btn-outline-primary btn-sm scroll-click" >ເພີ່ມຂໍ້ມູນແມ່ຄ້າ</a>
+            </div>
+          </div> 
+          <table class="checkbox-datatable table nowrap">
+            <thead>
+              <tr>
+                <th><div class="dt-checkbox">
+                    <input type="checkbox" name="select_all" value="1" id="example-select-all">
+                    <span class="dt-checkbox-label"></span>
+                  </div>
+                </th>
+                <th class="table-plus datatable-nosort">ຊື່ແມ່ຄ້າ</th>
+                <th>ຂໍ້ມູນຕິດຕໍ່</th>
+                <th>ທີຢູ່ປະຈຸບັນ</th>
+                <th>ຂ່າຍປະຈຳຢູ່ເຂດ</th>
+                <th>ວັນເດືອນປີເຂົາຮ່ວມ</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% sellers.forEach(function(seller) {%>
+              <tr>
+                <td></td>
+                <td class="table-plus"><%= seller.name %></td>
+                <td><%= seller.contact %> ຫຼື <%= seller.phone %></td>
+                <td><%= seller.address %></td>
+                <td><%= seller.village.market %></td>
+                <td><%= seller.joinAt.toLocaleDateString() %></td>
+                    <td>
+                      <div class="dropdown">
+                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                          <i class="dw dw-more"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                          <a class="dropdown-item" href="/seller/view/<%= seller.id %>"><i class="dw dw-eye"></i>View</a>
+                          <a class="dropdown-item" href="/seller/edit/<%= seller.id %>"><i class="dw dw-edit2"></i> Edit</a>
+                          <a class="dropdown-item" href="/seller/delete/<%= seller.id %>"  id="sa-params"><i class="dw dw-delete-3"></i> Delete</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+				<!-- multiple select row Datatable End -->
+			</div>
+      <%- include('../Partials/Footer')%>
+		</div>
+	</div>
+  <%- include('../Partials/Script')%>
+	</body>
+</html>

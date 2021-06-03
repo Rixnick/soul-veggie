@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<%- include('../Partials/Header')%>
+<body>
+  <%- include('../Partials/Navbar')%>
+  <%- include('../Partials/Sidebar')%>
+
+	<div class="main-container">
+		<div class="pd-ltr-20">
+      				<!-- Form grid Start -->
+				<div class="pd-20 card-box mb-30">
+					<div class="clearfix">
+						<div class="pull-left">
+							<h4 class="text-blue h4">ຟອມປ້ອນຂໍ້ມູນເຂດ</h4>
+						</div>
+						<!-- <div class="pull-right">
+							<a href="#form-grid-form" class="btn btn-primary btn-sm scroll-click" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-code"></i> Source Code</a>
+						</div> -->
+					</div>
+					<form action="/village/edit/<%= id %>" method="POST">
+						<div class="row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group">
+									<label>ຊື່ເຂດ</label>
+									<input type="text" name="area" id="area" class="form-control" placeholder="e.g ເຂດດົງນາສົກ" value="<%= area %>" required/>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group">
+									<label>ສະຖ່ານທີຕະລາດ</label>
+									<input type="text" name="market" id="market" class="form-control" placeholder="e.g ຕະຫລາດດົງນາສົກ" value="<%= market %>" required/>
+								</div>
+							</div>
+						</div>
+            <div class="row">
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ຂໍ້ມູນຕິດຕໍ່</label>
+									<input type="text" name="contact" id="contact" class="form-control" placeholder="e.g 02023456789" value="<%= contact %>" />
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ຫມ່າຍເຫດ</label>
+									<input type="text" name="remark" id="remark" class="form-control" placeholder="e.g ລາຍລະອຽດອື່ນໆ..." value="<%= remark %>" />
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ສະຖານະ</label>
+									<select class="custom-select2 form-control" name="status" style="width: 100%; height: 38px;">
+											<option value="true">ເປີດໃຊ້ງານ</option>
+											<option value="false">ປິດໃຊ້ງານ</option>
+									</select>
+								</div>
+							</div>
+						</div>
+            <button type="submit" class="btn btn-outline-primary">ອັບເດດຂໍ້ມູນ</button>
+						</div>
+					</form>
+					<div class="collapse collapse-box" id="form-grid-form" >
+						<div class="code-box">
+							<div class="clearfix">
+							<a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left"  data-clipboard-target="#form-grid"><i class="fa fa-clipboard"></i> Copy Code</a>
+						<a href="#form-grid-form" class="btn btn-primary btn-sm pull-right" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
+					</div>
+					<pre><code class="xml copy-pre" id="form-grid">
+      <%- include('../Partials/Footer')%>
+		</div>
+	</div>
+  <%- include('../Partials/Script') %>
+</body>
+</html>
