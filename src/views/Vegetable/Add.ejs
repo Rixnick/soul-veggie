@@ -19,13 +19,19 @@
 					</div>
 					<form action="/vegetable/add" method="POST" enctype="multipart/form-data">
 						<div class="row">
-							<div class="col-md-6 col-sm-12">
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ລະຫັດຫຍໍ້</label>
+									<input type="text" name="code" id="code" class="form-control" placeholder="e.g Svs-000" required>
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-12">
 								<div class="form-group">
 									<label>ຊື່ຜັກ</label>
 									<input type="text" name="name" id="name" class="form-control" placeholder="e.g ຜັກຫອມປ່ອມ" required>
 								</div>
 							</div>
-							<div class="col-md-6 col-sm-12">						
+							<div class="col-md-4 col-sm-12">						
 								<div class="form-group">
 									<label>ປະເພດຜັກ</label>
 										<select class="custom-select2 form-control" name="category" style="width: 100%; height: 35px;">
@@ -46,13 +52,13 @@
 							<div class="col-md-4 col-sm-12">
 								<div class="form-group">
 									<label>ລາຄາເຂົາ/kg</label>
-									<input type="number" name="price" id="price" class="form-control" placeholder="e.g ລາຄາ 5000kip/kg...">
+									<input type="number" name="price" id="price" class="form-control" placeholder="e.g ລາຄາ 5000kip/kg..." required>
 								</div>
 							</div>
 							<div class="col-md-4 col-sm-12">
 								<div class="form-group">
 									<label>ຈຳນວນນຳເຂົາ/kg</label>
-									<input type="number" name="qty" id="qty" class="form-control" placeholder="e.g ຈຳນວນເປັນ kg...">
+									<input type="number" name="qty" id="qty" class="form-control" placeholder="e.g ຈຳນວນເປັນ kg..." required>
 								</div>
 							</div>
 							<div class="col-md-4 col-sm-12">
@@ -68,7 +74,7 @@
 							<div class="col-md-12 col-sm-12">
 								<div class="form-group">
 									<label>ເລືອກຮູບ</label>
-									<input type="file" name="imagefile" id="formFile" accept="image/jpg, image/jpeg, image/png"/>
+									<input type="file" name="imagefile" id="formFile" accept="image/jpg, image/jpeg, image/png" required/>
 								</div>
 							</div>
 						</div>
