@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<%- include('../Partials/Header')%>
+<body>
+  <%- include('../Partials/Navbar')%>
+  <%- include('../Partials/Sidebar')%>
+
+	<div class="main-container">
+		<div class="pd-ltr-20">
+      				<!-- Form grid Start -->
+				<div class="pd-20 card-box mb-30">
+					<div class="clearfix">
+						<div class="pull-left">
+							<h4 class="text-blue h4">ລາຍລະອຽດຜັກ</h4>
+						</div>
+						<!-- <div class="pull-right">
+							<a href="#form-grid-form" class="btn btn-primary btn-sm scroll-click" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-code"></i> Source Code</a>
+						</div> -->
+					</div>
+          <div class="min-height-200px">
+            <div class="product-wrap">
+              <div class="product-detail-wrap mb-30">
+                <div class="row">
+                  <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="product-slider slider-arrow">
+                      <div class="product-slide">
+                        <img src="data:image/<%= vegetable.image.contentType%>;base64, <%= vegetable.image.data.toString('base64')%>" alt="" height="680px" width="680px">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="product-detail-desc pd-20 card-box height-100-p">
+                      <h4 class="mb-20 pt-20"><%= vegetable.name %></h4>
+                      <p>Tester </p>
+                      <p>Tester</p>
+                      <div class="price">
+                        <del>ລາຄາ</del><ins><%= vegetable.price %> kip</ins>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 col-6">
+                          <div class="mx-w-150">
+                            <div class="form-group">
+                              <label class="text-blue">ຈຳນວນໃນສະຕັອກ</label>
+                              <span><%= vegetable.qty %> kg</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6 col-6">
+                          <div class="mx-w-150">
+                            <div class="form-group">
+                              <label class="text-blue">QR Code</label>
+                              <img src=<%= src %> alt="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                   
+                      
+                      <div class="row">
+                        <div class="col-md-6 col-6">
+                          <a href="#" class="btn btn-primary btn-block">ພີ່ມລາຍລະອຽດ</a>
+                        </div>
+                        <div class="col-md-6 col-6">
+                          <a href="#" class="btn btn-outline-primary btn-block">Export QR</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>                  
+            </div>
+          </div>
+              
+      <%- include('../Partials/Footer')%>
+		</div>
+	</div>
+  <%- include('../Partials/Script') %>
+</body>
+</html>

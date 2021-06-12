@@ -23,7 +23,8 @@ router.get('/create_profile', Authcontroller.create_profile)
 router.get('/profile', Authcontroller.get_profile)
 
 
-router.get('/sales', SaleController.get_admin_view)
+//Get Sales Report admin side
+
 
 
 // app.get('/forgetpassword', (req, res, next) => {

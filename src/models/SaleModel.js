@@ -6,10 +6,10 @@ const saleSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Seller",
     },
-    saleVegetable: [{
+    saleVegetable: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "SellerVegetable",
-    }],
+    },
     desc: {
       type: String,
     },

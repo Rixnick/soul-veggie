@@ -23,7 +23,7 @@
 							<th>ຊື່ພັກ</th>
 							<th>ປະເພດຜັກ</th>
 							<th>ລາຍລະອຽດ</th>
-							<th>ລາຄາ</th>
+							<th>ລາຄານຳເຂົາ</th>
 							<th>ຈຳນວນ</th>
 							<th class="datatable-nosort">Action</th>
 						</tr>
@@ -35,7 +35,7 @@
 									<img src="data:image/<%= vegetable.image.contentType%>;base64, <%= vegetable.image.data.toString('base64')%>" width="70" height="70" alt="">
 								</td>
 								<td>
-									<h5 class="font-16"><%= vegetable.name %></h5>
+									<h5 class="font-16"><%= vegetable.code %> - <%= vegetable.name %></h5>
 								</td>
 								<td><%= vegetable.category.name %></td>
 								<td><%= vegetable.desc %></td>
@@ -47,7 +47,7 @@
 											<i class="dw dw-more"></i>
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="/vegetable"><i class="dw dw-eye"></i> View</a>
+											<a class="dropdown-item" href="/vegetable/view/<%= vegetable.id %>"><i class="dw dw-eye"></i> View</a>
 											<a class="dropdown-item" href="/vegetable/edit/<%= vegetable.id %>"><i class="dw dw-edit2"></i> Edit</a>
 											<a class="dropdown-item" href="/vegetable/delete/<%= vegetable.id %>"><i class="dw dw-delete-3"></i> Delete</a>
 										</div>

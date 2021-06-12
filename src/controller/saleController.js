@@ -16,13 +16,6 @@ module.exports.get_sales = async (req, res, next) => {
 }
 
 
-module.exports.get_admin_view = async (req, res, next) => {
-  res.render('Admin/Sales', {
-    
-  })
-}
-
-
 module.exports.get_createSale = async (req, res) => {
   try {
     const { id } = req.params;
@@ -33,12 +26,12 @@ module.exports.get_createSale = async (req, res) => {
       populate: { path: "vegetable" },
     });
     // console.log("Seller info:", seller);
-    //console.log(sellerVegetables.vegetable)
+    // console.log(sellerVegetables.vegetable)
 
     res.render('Sales/Create', {
       id: seller._id,
       name: seller.name,
-      vegetables: seller.vegetables
+      vegetables: seller.vegetables,
     })
   } catch (error) {
     console.log(error)
@@ -51,7 +44,7 @@ module.exports.post_createSale = async (req, res, next) => {
     // console.log(req.body)
     const {desc, qty_sales, sale_amount, stock_qty} = req.body;
     const sellerId = req.body.seller;
-    const [vegetableId] = req.body.vegetables;
+    const vegetableId = req.body.vegetable;
 
     //Check if not selecct one
     if(!sellerId) console.log("please select Seller...");
@@ -59,7 +52,7 @@ module.exports.post_createSale = async (req, res, next) => {
 
     const mySale = await SaleModel.create({
       seller: sellerId,
-      saleVegetable: [vegetableId],
+      saleVegetable: vegetableId,
       desc: desc,
       qty_sale: qty_sales,
       sale_amount: sale_amount,
@@ -87,9 +80,12 @@ module.exports.get_saleReport = async (req, res) => {
   try {
     const { id } = req.params;
     
-    const seller = await Seller.findById(id).populate({ path: 'sales' });
+    const seller = await Seller.findById(id).populate({ 
+                    path: "sales",
+                    // populate: { path: "saleVegetable", model: "SellerVegetable"}
+                  });
 
-    // console.log(seller);
+    // console.log("Seller sale: ", seller);
 
     res.render('Sales/Report', {
       id: seller._id,

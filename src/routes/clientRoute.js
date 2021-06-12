@@ -4,6 +4,7 @@ const ClientController = require('../controller/clientController');
 
 router.get('/', ClientController.get_client);
 
+router.get('/view/:id', ClientController.get_productById)
 
 router.get('/contact', (req, res) => {
   res.render('contact', {

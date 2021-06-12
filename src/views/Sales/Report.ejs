@@ -25,7 +25,7 @@
 						<% saleVegetables.forEach(function(veget){ %>
 							<tr>
 								<td><%= veget.createdAt.toLocaleDateString() %></td>
-								<td><%= veget.desc %></td>
+								<td><%= veget.desc %> <%= veget.name %> </td>
 								<td><%= veget.qty_sale %></td>
 								<td><%= veget.sale_amount %></td>
 								<td><%= veget.stock_qty %></td>

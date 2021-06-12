@@ -16,7 +16,7 @@ const VillageRoute = require('./routes/villageRoute');
 const VegetableRoute = require('./routes/vegetableRoute');
 const SellerRoute = require('./routes/sellerRoute');
 const SaleRoute = require('./routes/saleRoute');
-
+const AdminSaleRoute = require('./routes/adminSaleRoute');
 
 //client Routes
 const ClientRoute = require('./routes/clientRoute');
@@ -67,6 +67,7 @@ app.use('/village', VillageRoute);
 app.use('/vegetable', VegetableRoute);
 app.use('/seller', SellerRoute);
 app.use('/sales', SaleRoute);
+app.use('/admin', AdminSaleRoute);
 
 
 //Client

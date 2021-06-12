@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 
 const vegetableSchema = new mongoose.Schema(
   {
+    code: {
+      type: String,
+      required: true,
+      maxlength: 10,
+      minlength: 6
+    },
     name: {
       type: String,
       required: true,

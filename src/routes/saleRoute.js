@@ -17,4 +17,6 @@ router.get('/report/:id', authenticated, SaleController.get_saleReport)
 
 
 
+
+
 module.exports = router;

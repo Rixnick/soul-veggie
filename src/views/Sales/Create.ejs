@@ -23,9 +23,9 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>ເລືອກສິນຄ້າທີຂ່າຍແລ້ວ</label>
-									<select class="custom-select2 form-control" name="vegetables" multiple="multiple" style="width: 100%;" required>
+                  <select class="custom-select2 form-control" name="vegetable" style="width: 100%; height: 35px;">
 										<% vegetables.forEach(function(veget){ %>
-											<option value="<%= veget.vegetable.id %>"><%= veget.vegetable.name %></option>
+											<option value="<%= veget.vegetable.id %>"><%= veget.vegetable.name %> - ລາຄາ:<%= veget.price %>/kg - ຈຳນວນທີມີ: <%= veget.qty %></option>
 										<% }) %>
 									</select>
 								</div>
@@ -33,7 +33,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>ອະທິບາຍລະອຽດ</label>
-                  <textarea class="form-control" name="desc" id="desc"></textarea>
+                  <textarea class="form-control" name="desc" id="desc" placeholder="e.g ຊື່ຜັກ ຫຼື ຫມາກໄມ້ລະບຸໃຫ້ລະອຽດຂ່າຍເປັນ(kg, ມັດ, ຫນ່ວຍ, ກັບ, ແພັກ...!)-ຕົວຢ່າງ: ຜັກກາດ(kg)" required></textarea>
                 </div>
               </div>
               <div class="col-md-12">

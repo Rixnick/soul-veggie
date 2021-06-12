@@ -2,13 +2,12 @@ const path = require('path');
 const fs = require('fs');
 const Category = require("../models/CateModel");
 const Vegetable = require('../models/vegetable');
-
-
+const qr = require('qrcode');
 
 module.exports.get_vegetable = async (req, res, next) => {
   try {
     const vegetable = await Vegetable.find().populate({ path: 'category' });
-    //console.log("Vegetable: ", vegetable)
+    // console.log("Vegetable: ", vegetable)
     res.render('Vegetable/Index', {
       title: 'All Vegetable', 
       vegetables: vegetable
@@ -31,9 +30,30 @@ module.exports.get_addVegetable = async (req, res, next) => {
 }
 
 
+module.exports.get_vegetableById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const vegetable = await Vegetable.findById({ _id: id });
+
+    // console.log(vegetable)
+    qr.toDataURL(`http://192.168.100.14:5020/vegetable/view/${id}`, (err, src) => {
+      if(err) res.send('error occured');
+       res.render('Vegetable/View', {
+          productId: id,
+          src: src,
+          vegetable: vegetable
+        })
+    })
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
 module.exports.post_addVegetable = async (req, res, next) => {
   try {
-    const {name, desc, price, qty, status} = req.body;
+    const { code, name, desc, price, qty, status} = req.body;
     //Query Categroy ID:
     const categoryId = req.body.category;
 
@@ -52,6 +72,7 @@ module.exports.post_addVegetable = async (req, res, next) => {
     const category = await Category.findById({ _id: categoryId });
 
     const vegetable = await Vegetable.create({
+      code: code,
       name: name,
       desc: desc,
       price: price,
