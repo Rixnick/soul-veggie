@@ -51,16 +51,26 @@
 							</div>
 							<div class="col-md-4 col-sm-12">
 								<div class="form-group">
-									<label>ລາຄາເຂົາ/kg</label>
-									<input type="number" name="price" id="price" class="form-control" placeholder="e.g ລາຄາ 5000kip/kg..." required>
+									<label>ລາຄາ</label>
+									<input type="text" name="price" id="formattedNumberField" class="form-control" placeholder="e.g ລາຄາ 5000kip/kg...">
 								</div>
 							</div>
 							<div class="col-md-4 col-sm-12">
 								<div class="form-group">
-									<label>ຈຳນວນນຳເຂົາ/kg</label>
-									<input type="number" name="qty" id="qty" class="form-control" placeholder="e.g ຈຳນວນເປັນ kg..." required>
+									<label>ຫົວຫນ່ວຍ</label>
+									<select class="custom-select2 form-control" name="unit" style="width: 100%; height: 35px;">
+										<option value="ແພັກ">ແພັກ</option>
+										<option value="ຖົງ">ຖົງ</option>
+										<option value="ກັບ">ກັບ</option>
+										<option value="ຂວດ/ແກ້ວ">ຂວດ/ແກ້ວ</option>
+										<option value="ມັດ">ມັດ</option>
+										<option value="ກ່ອງ">ກ່ອງ</option>
+										<option value="kg">kg</option>
+										<option value="1/2kg">1/2kg</option>
+									</select>
 								</div>
 							</div>
+
 							<div class="col-md-4 col-sm-12">
 								<div class="form-group">
 									<label>ສະຖານະ</label>
@@ -71,12 +81,22 @@
 								</div>
 							</div>
 
-							<div class="col-md-12 col-sm-12">
+							<div class="col-md-8 col-sm-12">
 								<div class="form-group">
 									<label>ເລືອກຮູບ</label>
-									<input type="file" name="imagefile" id="formFile" accept="image/jpg, image/jpeg, image/png" required/>
+									<input type="file" name="imagefile" id="formFile" class="form-control" accept="image/jpg, image/jpeg, image/png" required/>
 								</div>
 							</div>
+
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ແຫລ່ງທີມາ</label>
+									<select class="custom-select2 form-control" name="supiler" style="width: 100%; height: 35px;">
+										<option value="">Pavanh farm</option>
+									</select>
+								</div>
+							</div>
+							
 						</div>
             <button type="submit" class="btn btn-outline-primary">ຈັດເກັບ</button>
 						</div>

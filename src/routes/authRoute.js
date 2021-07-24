@@ -1,39 +1,42 @@
 const express = require('express');
 const router = express.Router();
+const ProductController = require('../controller/productController');
 const Authcontroller  = require('../controller/authController');
-const SaleController = require('../controller/saleController');
-const authenticated = require('../middleware/auth');
+const { authenticated, checkUser } = require('../middleware/auth');
 
-router.get('/dashboard', authenticated, Authcontroller.get_home);
 
 
 router.get('/login', Authcontroller.get_signin);
 
 router.post('/login', Authcontroller.post_signin);
 
-router.get('/register', Authcontroller.get_signup)
 
-router.post('/register', Authcontroller.post_signup)
-
-router.get('/logout', Authcontroller.get_signout)
-
-router.get('/create_profile', Authcontroller.create_profile)
-
-
-router.get('/profile', Authcontroller.get_profile)
 
 
 //Get Sales Report admin side
+router.get('*', checkUser);
+
+router.get('/', authenticated, Authcontroller.get_allUsers)
+
+router.get('/create-account', authenticated, Authcontroller.create_account);
+
+router.get('/view/:id', authenticated, Authcontroller.get_userProfile)
+
+router.post('/register', authenticated, Authcontroller.post_signup);
 
 
+router.get('/dashboard', authenticated, Authcontroller.get_home);
 
-// app.get('/forgetpassword', (req, res, next) => {
-//   res.render('Forgetpassword')
-// })
+router.get('/products', authenticated, Authcontroller.get_userProducts)
 
-// app.get('/resetpassword', (req, res, next) => {
-//   res.render('Resetpassword')
-// })
+
+router.get('/carts', authenticated, ProductController.get_cart);
+
+router.get('/carts/:id', authenticated, ProductController.remove_cartById);
+
+
+router.get('/logout', Authcontroller.get_signout);
+
 
 
 module.exports = router;

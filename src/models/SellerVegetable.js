@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const sellervegetableSchema = new mongoose.Schema(
   {
-    seller: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Seller",
+      ref: "User",
     },
     vegetable: {
       type: mongoose.Schema.Types.ObjectId,
@@ -21,6 +21,10 @@ const sellervegetableSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    unit: {
+      required: true,
+      type: String
+    }
   },
   { timestamps: true }
 );

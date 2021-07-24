@@ -6,7 +6,7 @@ const qr = require('qrcode');
 
 module.exports.get_vegetable = async (req, res, next) => {
   try {
-    const vegetable = await Vegetable.find().populate({ path: 'category' });
+    const vegetable = await Vegetable.find({}).populate({ path: 'category' }).sort({ createdAt: 'desc' });
     // console.log("Vegetable: ", vegetable)
     res.render('Vegetable/Index', {
       title: 'All Vegetable', 
@@ -53,7 +53,10 @@ module.exports.get_vegetableById = async (req, res, next) => {
 
 module.exports.post_addVegetable = async (req, res, next) => {
   try {
-    const { code, name, desc, price, qty, status} = req.body;
+    const { code, name, desc, price, unit, status } = req.body;
+
+    const cmprice = price.replace(/,\s?/g, "");
+
     //Query Categroy ID:
     const categoryId = req.body.category;
 
@@ -75,8 +78,8 @@ module.exports.post_addVegetable = async (req, res, next) => {
       code: code,
       name: name,
       desc: desc,
-      price: price,
-      qty: qty,
+      price: cmprice,
+      unit: unit,
       status: status,
       category: categoryId,
       image: {

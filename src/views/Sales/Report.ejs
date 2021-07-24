@@ -1,55 +1,98 @@
 <!DOCTYPE html>
 <html>
-<%- include('../Partials/Header')%>
-<body>
-  <%- include('../Partials/Navbar')%>
-  <%- include('../Partials/sellerSide')%>
+  <%- include('../Partials/Header')%>
+  <body>
+    <%- include('../Partials/Navbar')%> <%- include('../Partials/sellerSide')%>
 
-	<div class="main-container">
-		<div class="pd-ltr-20">
-			<div class="card-box mb-30">
-				<h2 class="h4 pd-20">ຂໍ້ມູນຍອດຂ່າຍທັງຫມົດ <%= name %></h2>
-				<table class="table hover multiple-select-row data-table-export nowrap">
-					<thead>
-						<tr>
-							<th>ວັນເດືອນປີ</th>
-              <th>ຜັກທີຂ່າຍແລ້ວ</th>
-							<th>ຈຳນວນຂ່າຍແລ້ວ/kg</th>
-							<th>ຄິດເປັນເງີນ</th>
-							<th>ຜັກທີຍັງເຫຼືອ</th>
-							<th>ຫມາຍເຫດ</th>
-							<!-- <th class="datatable-nosort">Action</th> -->
-						</tr>
-					</thead>
-					<tbody>
-						<% saleVegetables.forEach(function(veget){ %>
-							<tr>
-								<td><%= veget.createdAt.toLocaleDateString() %></td>
-								<td><%= veget.desc %> <%= veget.name %> </td>
-								<td><%= veget.qty_sale %></td>
-								<td><%= veget.sale_amount %></td>
-								<td><%= veget.stock_qty %></td>
-								<td></td>
-								<!-- <td>
-									<div class="dropdown">
-										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-											<i class="dw dw-more"></i>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-											<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-											<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-										</div>
-									</div>
-								</td> -->
-							</tr>
-						<% }) %>					
-					</tbody>
-				</table>
-			</div>
-      <%- include('../Partials/Footer')%>
-		</div>
-	</div>
-  <%- include('../Partials/Script') %>
-</body>
+    <div class="main-container">
+      <div class="pd-ltr-20">
+        <% if(typeof saledatas !== "undefined") { %>
+        <!-- Export Datatable start -->
+        <div class="card-box mb-30">
+          <div class="pd-20">
+            <h4 class="text-blue h4">
+              ຂໍ້ມູນຍອດຂ່າຍທັງຫມົດປະຈຳວັນທີ <%= saledate.toLocaleDateString() %>
+            </h4>
+          </div>
+          <div class="pb-20">
+            <table class="table hover multiple-select-row data-table-export nowrap">
+              <thead>
+                <tr>
+                  <th class="table-plus datatable-nosort">Username</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                  <th>Paid</th>
+                  <th>Return</th>
+									<th>Paid With</th>
+                </tr>
+              </thead>
+              <tbody>
+								<% var sum = 0; %>
+								<% saledatas.forEach(function(sale) { %>
+									<% var subtt = parseFloat(sale.totalPrice).toFixed(2) %>
+									<% sum += +subtt %>
+									<tr>
+										<td class="table-plus"><%= seller %></td>
+										<td><%= sale.qty %><%= sale.items.unit %></td>
+										<td><%= parseFloat(sale.totalPrice).toFixed(2) %> kip</td>
+										<td><%= parseFloat(sale.totalPaid).toFixed(2) %> kip</td>
+										<td><%= parseFloat(sale.cashback).toFixed(2) %> kip</td>
+										<td><%= sale.paidWith %></td>
+									</tr>
+								<% }); %>
+									<tr>
+										<td><h3><b>ລວມທັງຫມົດ: </b></h3></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td colspan="4">
+											<h3>
+												<b>
+													<%= parseFloat(sum).toFixed(2) %>
+												</b>
+											</h3>
+											 kip</td>
+									</tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Export Datatable End -->
+        <% } else { %>
+        <!-- Export Datatable start -->
+        <div class="card-box mb-30">
+          <div class="pd-20">
+            <h4 class="text-blue h4">
+              ຂໍ້ມູນຍອດຂ່າຍທັງຫມົດປະຈຳວັນທີ <%= saledate.toLocaleDateString() %>
+            </h4>
+          </div>
+          <div class="pb-20">
+            <table
+              class="table hover multiple-select-row data-table-export nowrap"
+            >
+              <thead>
+                <tr>
+                  <th class="table-plus datatable-nosort">Username</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                  <th>Paid</th>
+                  <th>Return</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                 <h3>Empty Sale Data...!</h3>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Export Datatable End -->
+        <% }%> <%- include('../Partials/Footer')%>
+      </div>
+    </div>
+    <%- include('../Partials/Script') %>
+  </body>
 </html>

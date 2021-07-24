@@ -11,23 +11,41 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
-							<h4 class="text-blue h4">ຟອມປ້ອນຂໍ້ມູນແມ່ຄ້າ</h4>
+							<h4 class="text-blue h4">ຟອມປ້ອນຂໍ້ມູນທົວໄປຂອງພະນັກງານ</h4>
 						</div>
 						<!-- <div class="pull-right">
 							<a href="#form-grid-form" class="btn btn-primary btn-sm scroll-click" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-code"></i> Source Code</a>
 						</div> -->
 					</div>
-					<form action="/seller/add" method="POST">
+					<form action="/seller/add" method="POST" enctype="multipart/form-data">
 						<div class="row">
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ເລກທີພະນັກງານ</label>
+									<input type="text" name="code" id="code" class="form-control" placeholder="e.g SOU001" required>
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ຊື່ພະນັກງານ</label>
+									<input type="text" name="name" id="name" class="form-control" placeholder="e.g ໃສ່ຊື່" required>
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ນາມສະກຸນ</label>
+									<input type="text" name="surname" id="surname" class="form-control" placeholder="e.g ໃສ່ນາມສະກຸນ" required>
+								</div>
+							</div>
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
-									<label>ຊື່ແມ່ຄ້າ</label>
-									<input type="text" name="name" id="name" class="form-control" placeholder="e.g ນາງ ກ, ຫຼື ທ້າວ ຂ..." required>
+									<label>ເລກບັດປະຈຳຕົວ ຫຼື ສຳມະໂນຄົວ</label>
+									<input type="text" name="identity" id="identity" class="form-control" placeholder="e.g ໃສ່ເລກບັດປະຈຳຕົວ ຫຼ ສຳມະໂນຄົວ" required>
 								</div>
 							</div>
 							<div class="col-md-6 col-sm-12">						
 								<div class="form-group">
-									<label>ປະຈຳຢູ່ເຂດ</label>
+									<label>ບ່ອນຂ່າຍ</label>
 										<select class="custom-select2 form-control" name="village" style="width: 100%; height: 35px;">
 											<% villages.forEach(function(village) { %>
 												<option value="<%= village.id %>"><%= village.area %></option>
@@ -43,22 +61,48 @@
 									<input type="text" name="address" id="address" class="form-control" placeholder="e.g ບ້ານ ດົງໂດກ, ເມື່ອງ ໄຊທ່ານີ, ແຂວງ ນະຄອນຫຼວງວຽງຈັນ...">
 								</div>
 							</div>
-							<div class="col-md-4 col-sm-12">
+							<div class="col-md-3 col-sm-12">
 								<div class="form-group">
 									<label>ເບີໂທຕິດຕໍ່</label>
 									<input type="text" name="contact" id="contact" class="form-control" placeholder="e.g 020-2345-6789">
 								</div>
 							</div>
-							<div class="col-md-4 col-sm-12">
+							<div class="col-md-3 col-sm-12">
 								<div class="form-group">
 									<label>ເບີໂທຕິດຕໍ່ສຳຮອງ</label>
 									<input type="text" name="phone" id="phone" class="form-control" placeholder="e.g 030 234-5678">
 								</div>
 							</div>
-							<div class="col-md-4 col-sm-12">
+							<div class="col-md-3 col-sm-12">
 								<div class="form-group">
 									<label>ວັນເດືອນປີເຂົາຮ່ວມ</label>
 									<input type="date" name="joinAt" id="joinAt" class="form-control" placeholder="e.g ວັນ-ເດືອນ-ປີ" />
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-12">
+								<div class="form-group">
+									<label>ເລືອກຊື່ຜູ້ໃຊ້ງານ</label>
+									<select class="custom-select2 form-control" name="user" style="width: 100%; height: 35px;">
+										<% users.forEach(function(user) { %>
+											<option value="<%= user.id %>"><%= user.username %></option>
+										<% }) %>
+								 </select>
+								</div>
+							</div>
+
+							<div class="col-md-9 col-sm-12">
+								<div class="form-group">
+									<label>ເລືອກຮູບພະນັກງານ</label>
+									<input type="file" name="imageProfile" id="formFile" class="form-control" accept="image/jpg, image/jpeg, image/png" required/>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-12">
+								<div class="form-group">
+									<label>Status</label>
+									<select class="custom-select2 form-control" name="status" style="width: 100%; height: 35px;">
+										 <option value="active">Active</option>
+										 <option value="active">Inactive</option>
+									</select>
 								</div>
 							</div>
 						</div>

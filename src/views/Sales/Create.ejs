@@ -25,7 +25,7 @@
 									<label>ເລືອກສິນຄ້າທີຂ່າຍແລ້ວ</label>
                   <select class="custom-select2 form-control" name="vegetable" style="width: 100%; height: 35px;">
 										<% vegetables.forEach(function(veget){ %>
-											<option value="<%= veget.vegetable.id %>"><%= veget.vegetable.name %> - ລາຄາ:<%= veget.price %>/kg - ຈຳນວນທີມີ: <%= veget.qty %></option>
+											<option value="<%= veget.vegetable.id %>"><%= veget.vegetable.name %> - ລາຄາ:<%= veget.price %>/ຫົວຫນ່ວຍ - ຈຳນວນທີມີ: <%= veget.qty %></option>
 										<% }) %>
 									</select>
 								</div>
@@ -38,19 +38,34 @@
               </div>
               <div class="col-md-12">
                 <div class="row">
-                  <div class="col-md-4 col-sm-12">
+                  <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                      <label>ຈຳນວນຂ່າຍທັງຫມົດ:</label>
-                      <input type="number" name="qty_sales" id="qty_sales" class="form-control" required>
+                      <label>ຈຳນວນທີ່ຂ່າຍ:</label>
+                      <input type="number" step=0.01 min="1" name="qty_sales" id="qty_sales" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class="col-md-2 col-sm-12">
+                    <div class="form-group">
+                      <label>ຫົວຫນ່ວຍ:</label>
+                      <select class="custom-select2 form-control" name="unit" style="width: 100%; height: 35px;">
+                        <option value="ແພັກ">ແພັກ</option>
+                        <option value="ຖົງ">ຖົງ</option>
+                        <option value="ກັບ">ກັບ</option>
+                        <option value="ຂວດ/ແກ້ວ">ຂວດ/ແກ້ວ</option>
+                        <option value="ມັດ">ມັດ</option>
+                        <option value="ກ່ອງ">ກ່ອງ</option>
+                        <option value="kg">kg</option>
+                        <option value="1/2kg">1/2kg</option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                       <label>ລວມເປັນເງີນ:</label>
-                      <input type="number" name="sale_amount" id="sale_amount" class="form-control" required>
+                      <input type="number" pattern="^\d*(\.\d{0,2})?$" step="any" name="sale_amount" id="sale_amount" class="form-control" required>
                     </div>
                   </div>
-                  <div class="col-md-4 col-sm-12">
+                  <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                       <label>ຈຳນວນທີຍັງເຫຼືອ:</label>
                       <input type="number" name="stock_qty" id="stock_qty" class="form-control">

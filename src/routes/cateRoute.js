@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const CateController = require('../controller/cateController');
-const authenticated = require('../middleware/auth');
+const { authenticated, checkUser } = require('../middleware/auth');
 
 
+router.get('*', checkUser);
 
 router.get('/', authenticated, CateController.get_catePage);
 

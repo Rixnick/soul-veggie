@@ -26,10 +26,13 @@
                     <span class="dt-checkbox-label"></span>
                   </div>
                 </th>
-                <th class="table-plus datatable-nosort">ຊື່ແມ່ຄ້າ</th>
+                <th class="table-plus datatable-nosort">ລະຫັດພະນັກງານ</th>
+                <th class="table-plus datatable-nosort">ຊື່ພະນັກງານ</th>
+                <th>ນາມສະກຸນ</th>
+                <th>ເລກບັດປະຈຳຕົວ ຫຼ ສຳມະໂນຄົວ</th>
                 <th>ຂໍ້ມູນຕິດຕໍ່</th>
                 <th>ທີຢູ່ປະຈຸບັນ</th>
-                <th>ຂ່າຍປະຈຳຢູ່ເຂດ</th>
+                <th>ບ່ອນຂ່າຍ</th>
                 <th>ວັນເດືອນປີເຂົາຮ່ວມ</th>
                 <th>Actions</th>
               </tr>
@@ -38,20 +41,23 @@
               <% sellers.forEach(function(seller) {%>
               <tr>
                 <td></td>
+                <td class="table-plus"><%= seller.code %></td>
                 <td class="table-plus"><%= seller.name %></td>
-                <td><%= seller.contact %> ຫຼື <%= seller.phone %></td>
+                <td class="table-plus"><%= seller.surname %></td>
+                <td class="table-plus"><%= seller.identity %></td>
+                <td><%= seller.contact %></td>
                 <td><%= seller.address %></td>
                 <td><%= seller.village.market %></td>
                 <td><%= seller.joinAt.toLocaleDateString() %></td>
-                    <td>
-                      <div class="dropdown">
-                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                          <i class="dw dw-more"></i>
-                        </a>
+                <td>
+                  <div class="dropdown">
+                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                      <i class="dw dw-more"></i>
+                    </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                          <a class="dropdown-item" href="/seller/view/<%= seller.id %>"><i class="dw dw-eye"></i>View</a>
-                          <a class="dropdown-item" href="/seller/edit/<%= seller.id %>"><i class="dw dw-edit2"></i> Edit</a>
-                          <a class="dropdown-item" href="/seller/delete/<%= seller.id %>"  id="sa-params"><i class="dw dw-delete-3"></i> Delete</a>
+                          <a class="dropdown-item" href="/seller/view/<%= seller.id %>"><i class="dw dw-eye"></i>ເບີ່ງສີນຄ້າພະນັກງານ</a>
+                          <a class="dropdown-item" href="/seller/edit/<%= seller.id %>"><i class="dw dw-edit2"></i> ແກ້ໄຂ</a>
+                          <a class="dropdown-item" href="/seller/delete/<%= seller.id %>"  id="sa-params"><i class="dw dw-delete-3"></i> ລົບ</a>
                         </div>
                       </div>
                     </td>

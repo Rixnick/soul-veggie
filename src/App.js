@@ -16,10 +16,10 @@ const VillageRoute = require('./routes/villageRoute');
 const VegetableRoute = require('./routes/vegetableRoute');
 const SellerRoute = require('./routes/sellerRoute');
 const SaleRoute = require('./routes/saleRoute');
-const AdminSaleRoute = require('./routes/adminSaleRoute');
 
 //client Routes
 const ClientRoute = require('./routes/clientRoute');
+const ProductsRoute = require('./routes/productRoutes');
 
 //Connect to Database
 mongoose.connect(process.env.DB_URI, {
@@ -58,20 +58,19 @@ app.use(fileUpload({
 
 
 
-
-
 //Used Routes
 app.use('/user', AuthRoute);
+
 app.use('/category', CateRoute);
 app.use('/village', VillageRoute);
 app.use('/vegetable', VegetableRoute);
 app.use('/seller', SellerRoute);
 app.use('/sales', SaleRoute);
-app.use('/admin', AdminSaleRoute);
 
 
 //Client
-app.use('/', ClientRoute)
+app.use('/', ClientRoute);
+app.use('/products', ProductsRoute);
 
 
 

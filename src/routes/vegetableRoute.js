@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const VegetableController = require('../controller/vegetableController');
-const authenticated = require('../middleware/auth');
+const { authenticated, checkUser } = require('../middleware/auth');
+
+router.get('*', checkUser);
 
 router.get('/', authenticated, VegetableController.get_vegetable);
 

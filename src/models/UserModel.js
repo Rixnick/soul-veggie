@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    lowercase: true,
+    // lowercase: true,
   },
   email: {
     type: String,
@@ -17,12 +17,32 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
   },
-  sellers: [
+  products: [
     {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "SellerVegetable",
+    }
+  ],
+  sellers: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Seller",
     },
-  ],
+  sales: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Sale",
+      },
+    ],
+   carts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Cart",
+      },
+    ],
+  roles:{
+    type: String,
+    required: true
+  },
   isActive: {
     type: Boolean,
     default: true,

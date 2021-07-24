@@ -1,11 +1,14 @@
+const path = require('path');
+const fs = require('fs');
 const Seller = require("../models/SellerModel");
 const Vegetable = require("../models/vegetable");
 const Village = require("../models/VillageModel");
 const SellerVegetable = require("../models/SellerVegetable");
+const User = require("../models/UserModel");
 
 module.exports.get_sellers = async (req, res, next) => {
   try {
-    const sellers = await Seller.find().populate({ path: "village" });
+    const sellers = await Seller.find().populate({ path: "village" }).sort({ createdAt: 'desc'});
     // console.log(sellers);
     res.render("Seller/Index", {
       title: "Sellers Page",
@@ -18,65 +21,111 @@ module.exports.get_sellers = async (req, res, next) => {
 
 module.exports.get_addSeller = async (req, res, next) => {
   try {
-    const villages = await Village.find();
+    const villages = await Village.find({}).sort({ createdAt: 'desc'});
+    const users = await User.find({}).sort({ joinAt: 'desc' })
     res.render("Seller/Add", {
       title: "Create Seller",
       villages: villages,
+      users: users
     });
   } catch (error) {
     console.log(error);
   }
 };
-
+ 
 module.exports.post_addSeller = async (req, res, next) => {
+  // console.log(req.body);
+  // 
   try {
-    const { name, address, contact, phone, joinAt } = req.body;
+    const {code, name, surname, identity, address, contact, phone, joinAt, status } = req.body;
 
-    //Find Vilage by ID
+    //Query Village ID:
     const villageId = req.body.village;
 
-    //Check Village ID Already Exist
-    if (!villageId) console.log("ກະລຸນາເລືອກເຂດ...");
+    //Query User ID:
+    const userId = req.body.user;
+
+    //upload profile image
+    const file = req.files.imageProfile;
+    // console.log(file)
+    const fileName = new Date().getTime().toString() + path.extname(file.name);
+    const savePath = path.join(__dirname, '../', '../', 'public', 'uploads', 'profiles', fileName);
+    if(file.truncated){
+      throw new Error('File is too big...!')
+    }
+
+    await file.mv(savePath);
+
+    if(!villageId) console.log('ກະລຸນາເລືອກຕະຫລາດ...');
 
     const village = await Village.findById({ _id: villageId });
 
+    if(!userId) console.log('ກະລຸນາລັອກອີນກ່ອນ...');
+
+    const user = await User.findById({ _id: userId });
+
     const seller = await Seller.create({
+      code: code,
       name: name,
+      surname: surname,
+      identity: identity,
       address: address,
       contact: contact,
       phone: phone,
       joinAt: joinAt,
+      status: status,
+      user: userId,
       village: villageId,
-    });
+      profile: {
+        data: fs.readFileSync(savePath),
+        contentType: 'image/png'
+      }
+    })
 
-    if (!village.sellers) {
+    if(!village.seller){
       village.sellers = [seller];
-    } else {
+    }else{
       village.sellers.push(seller);
     }
 
-    await village.save();
+    if(!user.sellers){
+      user.sellers = seller;
+    }else{
+      user.sellers.push(seller);
+    }
 
-    res.redirect("/seller");
+    await village.save();
+    await user.save();
+
+    res.redirect('/seller');
+
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
 };
 
 module.exports.get_updateSeller = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const villages = await Village.find();
-    const seller = await Seller.findById(id).populate({ path: "village" });
+    const villages = await Village.find({}).sort({ createdAt: 'desc' });
+    const seller = await Seller.findById(id).populate({ path: "village" }).populate({ path: 'user'});
+    // console.log(seller)
+    const userMarket = seller.village.market;
 
     if (!seller) return console.log("Please select seller ...!");
     res.render("Seller/Edit", {
+      code: seller.code,
       name: seller.name,
+      surname: seller.surname,
+      identity: seller.identity,
       address: seller.address,
       contact: seller.contact,
       phone: seller.phone,
       joinAt: seller.joinAt,
+      village: userMarket,
       villages: villages,
+      profile: seller.profile,
+      user: seller.user.username,
       id: seller.id,
     });
   } catch (error) {
@@ -103,12 +152,25 @@ module.exports.get_sellerId = async (req, res, next) => {
       path: "vegetables",
       model: "SellerVegetable",
       populate: { path: "vegetable" },
-    });
-    // console.log(seller.vegetables);
+    }).populate({ path: "user"});
+
+    // console.log("Seller Info:", seller);
+
+    const userId = seller.user._id;
+
+    // console.log("user owner id:",userId)
+
+    const user = await User.findById({ _id: userId }).populate({ 
+      path: 'products', 
+      model: SellerVegetable,
+      populate: [{ path: 'vegetable'}]
+    }).sort({ createdAt: 'desc' });
+    
+    // console.log("list user product:", user);
     res.render("Seller/ListVegetable", {
       id: seller._id,
       name: seller.name,
-      sellervegetables: seller.vegetables,
+      products: user.products,
     });
   } catch (error) {}
 };
@@ -116,13 +178,17 @@ module.exports.get_sellerId = async (req, res, next) => {
 module.exports.get_AddSellerVegetable = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const seller = await Seller.findById(id);
+    const seller = await Seller.findById(id).populate({ path: 'user'});
     const vegetable = await Vegetable.find();
-    // console.log(seller);
+
+    const userId = seller.user.id;
+    // console.log("user Id:",userId);
     res.render("Seller/AddSellerVegetable", {
+      code: seller.code,
       name: seller.name,
       vegetables: vegetable,
       id: id,
+      userId: userId
     });
   } catch (error) {
     console.log(error);
@@ -131,35 +197,50 @@ module.exports.get_AddSellerVegetable = async (req, res, next) => {
 
 module.exports.post_AddSellerVegetable = async (req, res, next) => {
   try {
-    const { desc, qty, price } = req.body;
-    const sellerId = req.body.seller;
+    const { desc, qty, unit, price } = req.body;
+    const userId = req.body.user;
     const vegetableId = req.body.vegetable;
+    const sellerId = req.body.seller;
 
     // console.log(req.body);
 
-    if (!sellerId) console.log("please select Seller...");
+    if (!userId) console.log("please select Seller...");
     if (!vegetableId) console.log("please select Vegetable...");
 
     const myvegetable = await SellerVegetable.create({
-      seller: sellerId,
-      vegetable: vegetableId,
       desc: desc,
       qty: qty,
+      unit: unit,
       price: price,
+      user: userId,
+      vegetable: vegetableId
     });
 
-    const seller = await Seller.findById({ _id: sellerId });
+    // console.log(myvegetable)
 
-    if (!seller.vegetables) {
-      seller.vegetables = [myvegetable];
+    const user = await User.findById({ _id: userId });
+
+    const vegetable = await Vegetable.findById({ _id: vegetableId });
+
+    if (!user.products) {
+      user.products = [myvegetable];
     } else {
-      seller.vegetables.push(myvegetable);
+      user.products.push(myvegetable);
     }
 
-    await myvegetable.save();
-    await seller.save();
+    if(!vegetable.userproduct){
+      vegetable.userproduct = [myvegetable];
+    }else{
+      vegetable.userproduct.push(myvegetable);
+    }
 
-    res.redirect("/seller");
+
+
+    await myvegetable.save();
+    await vegetable.save();
+    await user.save();
+
+    res.redirect(`/seller/view/${sellerId}`);
   } catch (error) {
     console.log(error);
   }

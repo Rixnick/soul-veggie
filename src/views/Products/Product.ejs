@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+  <%- include('../Partials/iHeader')%>
+
+<body>
+
+  <%- include('../Partials/iNavbar')%>
+
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>ປະເພດຜັກທັງຫມົດ</span>
+                        </div>
+                        <ul>
+                          <% categories.forEach(function(category) { %>
+                            <li><a href="/category/<%= category.id%>"><%= category.name %></a></li>
+                          <% }) %>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    ປະເພດຜັກທັງຫມົດ
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="What do yo u need?">
+                                <button type="submit" class="site-btn">ຄົ້ນຫາ</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+856-205-888-1357</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="/front/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>ລາຍລະອຽດສີນຄ້າ</h2>
+                        <div class="breadcrumb__option">
+                            <a href="/">ຫນ້າຫຼັກ</a>
+                            <a href="/products">ສີນຄ້າ</a>
+                            <span><%= vegetable.name %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Product Details Section Begin -->
+    <section class="product-details spad">
+        <% if(user) { %>
+            <form>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="product__details__pic">
+                                <div class="product__details__pic__item">
+                                    <img class="product__details__pic__item--large"
+                                        src="data:image/<%= vegetable.image.contentType%>;base64, <%= vegetable.image.data.toString('base64')%>" alt="">
+                                </div>
+                                <div class="product__details__pic">
+                                    <img src=<%= src %> alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="product__details__text">
+                                <h3>
+                                    <%= vegetable.name %>
+                                </h3>
+                                <div class="product__details__rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                    <span>(18 reviews)</span>
+                                </div>
+                                <div class="product__details__price">
+                                    <%= vegetable.price %>.00 kip
+                                    <input type="number" hidden name="price" value="<%= vegetable.price %>">
+                                </div>
+                                <p><%= vegetable.desc %></p>
+                                <div class="product__details__quantity">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="number" name="qty" value="1"/>
+                                        </div>
+                                    </div>
+                                    <div class="quantity">
+                                        <select class="custom-select2 form-control" name="unit" style="width: 100%; height: 35px;">
+                                            <option value="ແພັກ">ແພັກ</option>
+                                            <option value="ຖົງ">ຖົງ</option>
+                                            <option value="ກັບ">ກັບ</option>
+                                            <option value="ຂວດ/ແກ້ວ">ຂວດ/ແກ້ວ</option>
+                                            <option value="ມັດ">ມັດ</option>
+                                            <option value="ກ່ອງ">ກ່ອງ</option>
+                                            <option value="kg">kg</option>
+                                            <option value="1/2kg">1/2kg</option>
+                                        </select>
+                                    </div>
+                                </div>
+    
+                                <button type="submit" class="primary-btn">ໃສ່ກະຕາ</button>
+                                <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                                <ul>
+                                    <li><b>Availability</b> <span>In Stock</span></li>
+                                    <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
+                                    <li><b>Weight</b> <span>0.5 kg</span></li>
+                                    <li><b>Share on</b>
+                                        <div class="share">
+                                            <a href="#"><i class="fa fa-facebook"></i></a>
+                                            <a href="#"><i class="fa fa-twitter"></i></a>
+                                            <a href="#"><i class="fa fa-instagram"></i></a>
+                                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        <% } else { %>
+            <form>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="product__details__pic">
+                                <div class="product__details__pic__item">
+                                    <img class="product__details__pic__item--large"
+                                        src="data:image/<%= vegetable.image.contentType%>;base64, <%= vegetable.image.data.toString('base64')%>" alt="">
+                                </div>
+                                <div class="product__details__pic">
+                                    <img src=<%= src %> alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="product__details__text">
+                                <h3>
+                                    <%= vegetable.name %>
+                                </h3>
+                                <div class="product__details__rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                    <span>(18 reviews)</span>
+                                </div>
+                                <div class="product__details__price">
+                                    <%= vegetable.price %>.00 kip
+                                    <input type="number" hidden name="price" value="<%= vegetable.price %>">
+                                </div>
+                                <p><%= vegetable.desc %></p>
+                                <div class="product__details__quantity">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="number" name="qty" value="1"/>
+                                        </div>
+                                    </div>
+                                    <div class="quantity">
+                                        <select class="custom-select2 form-control" name="unit" style="width: 100%; height: 35px;">
+                                            <option value="ແພັກ">ແພັກ</option>
+                                            <option value="ຖົງ">ຖົງ</option>
+                                            <option value="ກັບ">ກັບ</option>
+                                            <option value="ຂວດ/ແກ້ວ">ຂວດ/ແກ້ວ</option>
+                                            <option value="ມັດ">ມັດ</option>
+                                            <option value="ກ່ອງ">ກ່ອງ</option>
+                                            <option value="kg">kg</option>
+                                            <option value="1/2kg">1/2kg</option>
+                                        </select>
+                                    </div>
+                                </div>
+    
+                                <button type="submit" class="primary-btn">ໃສ່ກະຕາ</button>
+                                <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                                <ul>
+                                    <li><b>Availability</b> <span>In Stock</span></li>
+                                    <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
+                                    <li><b>Weight</b> <span>0.5 kg</span></li>
+                                    <li><b>Share on</b>
+                                        <div class="share">
+                                            <a href="#"><i class="fa fa-facebook"></i></a>
+                                            <a href="#"><i class="fa fa-twitter"></i></a>
+                                            <a href="#"><i class="fa fa-instagram"></i></a>
+                                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        <% } %>
+    </section>
+    <!-- Product Details Section End -->
+
+
+    <%- include('../Partials/iFooter')%>
+
+    <%- include('../Partials/iScript')%>
+
+</body>
+
+</html>

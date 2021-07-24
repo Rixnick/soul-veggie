@@ -12,7 +12,7 @@
         <div class="card-box mb-30">    
           <div class="clearfix">
             <div class="pull-left">
-              <h2 class="h4 pd-20">ລາຍການຂໍ້ມູນຜັກຂອງ  <%= name %></h2>
+              <h2 class="h4 pd-20">ລາຍການຂໍ້ມູນຜັກຂອງ <%= name %></h2>
             </div>
             <div class="pull-right">
               <a href="/seller/addsellervegetable/<%= id %>" class="btn btn-outline-primary btn-sm scroll-click" >ເພີ່ມຂໍ້ມູນຜັກໃຫ້ແມ່ຄ້າ</a>
@@ -22,39 +22,30 @@
             <thead>
               <tr>
                 <th><div class="dt-checkbox">
-                    <input type="checkbox" name="select_all" value="1" id="example-select-all">
-                    <span class="dt-checkbox-label"></span>
-                  </div>
+                      <input type="checkbox" name="select_all" value="1" id="example-select-all">
+                      <span class="dt-checkbox-label"></span>
+                    </div>
                 </th>
+                <th>ວັນເດືອນປີ</th>
                 <th>ຊື່ຜັກ</th>
-                <th>ລາຄາຂ່າຍ/kg</th>
-                <th>ຈຳນວນທີມີ/kg</th>
-                <th>ອັບເດດລາສູດ</th>
-                <th>Actions</th>
+                <th>ຈຳນວນທີມີ</th>
+                <th>ຫົວຫນ່ວຍ</th>
+                <th>ລາຄາຂ່າຍ</th>
+                <th>ຜັກທີຍັງເຫຼືອ</th>
               </tr>
             </thead>
             <tbody>
-              <% sellervegetables.forEach(function(sellerv){ %>
+              <% products.forEach(function(product){%>
                 <tr>
                   <td></td>
-                  <td class="table-plus"><%= sellerv.vegetable.name %></td>
-                  <td><%= sellerv.price %></td>
-                  <td><%= sellerv.qty %></td>
-                  <td><%= sellerv.updatedAt.toLocaleDateString() %></td>
-                      <td>
-                        <div class="dropdown">
-                          <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                            <i class="dw dw-more"></i>
-                          </a>
-                          <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                            <a class="dropdown-item" href="/seller/view/"><i class="dw dw-eye"></i>View</a>
-                            <a class="dropdown-item" href="/seller/edit/"><i class="dw dw-edit2"></i> Edit</a>
-                            <a class="dropdown-item" href="/seller/delete/"  id="sa-params"><i class="dw dw-delete-3"></i> Delete</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-              <% }) %>
+                  <td class="table-plus"><%= product.createdAt.toLocaleDateString() %></td>
+                  <td><%= product.vegetable.name %></td>
+                  <td><%= product.qty %></td>
+                  <td><%= product.unit %></td>
+                  <td><%= product.price %> k</td>
+                  <td><%= product.qty %></td>
+                </tr>
+                <% }) %>
             </tbody>
           </table>
         </div>

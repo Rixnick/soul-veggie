@@ -11,7 +11,7 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
-							<h4 class="text-blue h4">ຟອມສ້າງຂໍ້ມູນລາຍການຜັກ </h4>
+							<h4 class="text-blue h4">ຟອມສ້າງຂໍ້ມູນລາຍການຜັກ</h4>
 						</div>
 						<!-- <div class="pull-right">
 							<a href="#form-grid-form" class="btn btn-primary btn-sm scroll-click" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-code"></i> Source Code</a>
@@ -22,16 +22,17 @@
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
 									<label>ລະຫັດແມ່ຄ້າ</label>
-									<input type="hidden" name="seller" id="seller" class="form-control" value="<%= id %>" required>
-									<input type="text" class="form-control" value="<%= name %>" disabled required>
+									<input type="hidden" name="user" class="form-control" value="<%= userId %>" required>
+									<input type="hidden" name="seller" class="form-control" value="<%= id %>" required>
+									<input type="text" class="form-control" value="<%= code %>-<%= name %>" disabled required>
 								</div>
 							</div>
 							<div class="col-md-6 col-sm-12">						
 								<div class="form-group">
-									<label>ເລືອກຜັກ ຫຼື ຜົນລະໄມ້(ລາຄານຳເຂົາ)</label>
+									<label>ເລືອກຜັກ ຫຼື ຜົນລະໄມ້</label>
 										<select class="custom-select2 form-control" name="vegetable" style="width: 100%; height: 35px;">
 											<% vegetables.forEach(function(vegetable){ %>
-												<option value="<%= vegetable.id %>"><%= vegetable.name %> - ລາຄາ:<%= vegetable.price %>/kg - ຈຳນວນໃນສ່າງ: <%= vegetable.qty %></option>
+												<option value="<%= vegetable.id %>"><%= vegetable.name %> - ລາຄາ:<%= vegetable.price %>/<%= vegetable.unit %></option>
 											<% }) %>
 										</select>
 								</div>
@@ -44,16 +45,31 @@
 									<input type="text" name="desc" id="desc" class="form-control" placeholder="e.g ຜັກປອດສານເຄມີ...">
 								</div>
 							</div>
-							<div class="col-md-6 col-sm-12">
+							<div class="col-md-4 col-sm-12">
 								<div class="form-group">
-									<label>ຈຳນວນແບງຂ່າຍ/kg</label>
-									<input type="number" name="qty" id="qty" class="form-control" placeholder="e.g 12 ">
+									<label>ຈຳນວນ</label>
+									<input type="number" min="1" name="qty" id="qty" class="form-control" placeholder="e.g 12 ">
 								</div>
 							</div>
-							<div class="col-md-6 col-sm-12">
+							<div class="col-md-4 col-sm-12">
 								<div class="form-group">
-									<label>ລາຄາຂ່າຍ(ຕັ້ງເອົາ)</label>
-									<input type="number" name="price" id="price" class="form-control" placeholder="e.g 5000">
+									<label>ຫົວຫນ່ວຍ</label>
+									<select class="custom-select2 form-control" name="unit" style="width: 100%; height: 35px;">
+										<option value="ແພັກ">ແພັກ</option>
+										<option value="ຖົງ">ຖົງ</option>
+										<option value="ກັບ">ກັບ</option>
+										<option value="ຂວດ/ແກ້ວ">ຂວດ/ແກ້ວ</option>
+										<option value="ມັດ">ມັດ</option>
+										<option value="ກ່ອງ">ກ່ອງ</option>
+										<option value="kg">kg</option>
+										<option value="1/2kg">1/2kg</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>ລາຄາຂ່າຍ</label>
+									<input type="number" step="0.01" min="0" name="price" id="price" class="form-control" placeholder="e.g 5000">
 								</div>
 							</div>
 						</div>

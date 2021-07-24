@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+  <%- include('../Partials/iHeader')%>
+
+<body>
+
+
+  <%- include('../Partials/iNavbar')%>
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>ປະເພດຜັກທັງຫມົດ</span>
+                        </div>
+                        <ul>
+                            <% categories.forEach(function(category) { %>
+                                <li><a href="/category/<%= category.id%>"><%= category.name %></a></li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    ປະເພດຜັກທັງຫມົດ
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="What do yo u need?">
+                                <button type="submit" class="site-btn">ຄົ້ນຫາ</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+856-205-888-1357</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="/front/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>ສ້າງລາຍການທີຈະຂາຍ</h2>
+                        <div class="breadcrumb__option">
+                            <a href="/">ຫນ້າຫຼັກ</a>
+                            <span>ຂໍ້ມູນສິນຄ້າ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
+        
+        <form action="/products/sales" method="post">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shoping__cart__table">
+                            <% if(typeof carts !== "undefined") {%>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="shoping__product">ລາຍການສິນຄ້າ</th>
+                                            <th>ລາຄາ</th>
+                                            <th>ຈຳນວນ</th>
+                                            <th>ລວມເປັນເງິນ</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% var total = 0; %>
+                                        <% var totalQty = 0; %>
+                                        <% carts.forEach(function(cart){ %>
+                                        <% var sub = parseFloat(cart.vegetable.price * cart.qty).toFixed(2)%>
+                                        <% var qty = cart.qty %>
+                                        <% total += +sub %>
+                                        <% totalQty += +qty %>
+                                        <tr>
+                                            <td class="shoping__cart__item">
+                                                <img src="data:image/<%= cart.vegetable.image.contentType%>;base64, <%= cart.vegetable.image.data.toString('base64')%>" height="80px" width="80px" alt="">
+                                                <h5><%= cart.vegetable.name %></h5>
+                                            </td>
+                                            <td class="shoping__cart__price">
+                                                <%= parseFloat(cart.vegetable.price).toFixed(2) %> kip
+                                            </td>
+                                            <td class="shoping__cart__quantity">
+                                                <div class="quantity">
+                                                    <div class="pro-qty">
+                                                        <input type="text" value="<%= cart.qty %>">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="shoping__cart__total">
+                                                <%= sub %> kip
+                                                <input type="number" name="totalsub" hidden value="<%= sub %>" />
+                                            </td>
+                                            <td class="shoping__cart__item__close">
+                                                <a href="/user/carts/<%= cart.id %>">
+                                                    <span  class="icon_close"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                            
+                                        <% }); %>
+
+                                        <tr>
+                                            <td><b>ລວມທັງຫມົດ:</b></td>
+                                            <td>
+                                                <input type="number" hidden name="qty" value="<%= totalQty %>">
+                                                <input type="text" hidden name="userId" value="<%= userId %>"/>
+                                            </td>
+                                            <td></td>
+                                            <td colspan="4" class="shoping__cart__price">
+                                                <h5><%= parseFloat(total).toFixed(2) %> kip</h5>
+                                                <input type="text" name="totalPrice" hidden value="<%= parseFloat(total).toFixed(2) %>">
+                                            </td>
+""
+                                         </tr>
+                                    </tbody>
+                                </table>
+                            <% } else { %>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="shoping__product">ລາຍການສິນຄ້າ</th>
+                                            <th>ລາຄາ</th>
+                                            <th>ຈຳນວນ</th>
+                                            <th>ລວມເປັນເງິນ</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="shoping__cart__item">
+                                                <img src="" height="80px" width="80px" alt="">
+                                                <h5></h5>
+                                            </td>
+                                            <td class="shoping__cart__price">
+                                                <h5>Your Cart is Empty</h5>
+                                            </td>
+                                            <td class="shoping__cart__quantity">
+                                                <div class="quantity">
+                                                    <div class="pro-qty">
+                                                    
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="shoping__cart__total">
+                                            
+                                    
+                                            </td>
+                                            <td class="shoping__cart__item__close">
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="shoping__continue">
+                            <div class="shoping__discount">
+                                <h5>ເລືອກວິທີການຈ່າຍເງີນ</h5>
+                                <input type="number" name="totalPaid"  class="form-control" placeholder="ໃສ່ຈຳນວນເງີນ" required> <br><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="shoping__continue">
+                            <div class="shoping__discount">
+                                    <select class="custom-select2 form-control" name="paidWith" style="width: 100%; height: 35px;" required>
+                                        <option disabled>--ວິທີການຊຳລະເງີນ--</option>
+                                        <option value="ຈ່າຍດ້ວຍເງີນສົດ">ຈ່າຍດ້ວຍເງີນສົດ</option>
+                                        <option value="ຈ່າຍຜ່ານແອັບ">ຈ່າຍຜ່ານແອັບ</option>
+                                    </select><br><br><br>
+
+                                    <select class="custom-select2 form-control" name="saleDate" style="width: 100%; height: 35px;" required>
+                                        <option disabled>--ເລືອກມື້ຂາຍສິນຄ້າ--</option>
+                                        <% saledatas.forEach(function(saledata){%>
+                                            <option value="<%= saledata.id %>">ວັນທີ: <%= saledata.createdAt.toLocaleDateString() %></option>
+                                        <% }); %>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="shoping__checkout">
+                           
+                            <ul>
+        
+                            </ul>
+                            <button type="submit" class="primary-btn">ຂາຍສິນຄ້າ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+    <!-- Shoping Cart Section End -->
+
+
+    <%- include('../Partials/iFooter')%>
+
+    <%- include('../Partials/iScript')%>
+</body>
+
+</html>

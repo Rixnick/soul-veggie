@@ -49,76 +49,102 @@
     </div>
     <div class="user-notification">
       <div class="dropdown">
-        <a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
-          <i class="icon-copy dw dw-notification"></i>
-          <span class="badge notification-active"></span>
+        <a class="dropdown-toggle no-arrow" href="/sale/create-sale" role="button" data-toggle="dropdown">
+         <% if(user.carts !== "undefined") { %>
+            <i class="icon-copy dw dw-shopping-cart"></i>
+            <span><%= user.carts.length %></span>
+         <% } else { %>
+            <i class="icon-copy dw dw-shopping-cart"></i>
+            <span>0</span>
+          <% } %>
         </a>
         <div class="dropdown-menu dropdown-menu-right">
           <div class="notification-list mx-h-350 customscroll">
-            <ul>
-              <li>
-                <a href="#">
-                  <img src="/vendors/images/img.jpg" alt="">
-                  <h3>John Doe</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="/vendors/images/photo1.jpg" alt="">
-                  <h3>Lea R. Frith</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="/vendors/images/photo2.jpg" alt="">
-                  <h3>Erik L. Richards</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="/vendors/images/photo3.jpg" alt="">
-                  <h3>John Doe</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="/vendors/images/photo4.jpg" alt="">
-                  <h3>Renee I. Hansen</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="/vendors/images/img.jpg" alt="">
-                  <h3>Vicki M. Coleman</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                </a>
-              </li>
-            </ul>
+            <% if(typeof user.carts !== "undefined") { %>
+                <ul>
+                  <% var total = 0; %>
+                  <% var totalQty = 0; %>
+                  <% user.carts.forEach(function(cart) { %>
+                  <% var sub = parseFloat(cart.price * cart.qty).toFixed(2)%>
+                  <% var qty = cart.qty %>
+                  <% total += +sub %>
+                  <% totalQty += +qty %>
+                  <li>
+                    <a href="/user/carts/<%= cart.id %>">
+                      <img src="data:image/<%= cart.vegetable.image.contentType%>;base64, <%= cart.vegetable.image.data.toString('base64')%>" alt="">
+                      <h3><%= cart.vegetable.name %></h3>
+                      <p><%= parseFloat(cart.price).toFixed(2) %> kip X <span><%= qty %></span><br><span>  = </span> <span><%= sub %> kip</span></p>
+                    </a>
+                  </li>
+                  <% }); %>
+                </ul>
+                <hr>
+                <ul>
+                  <li>
+                    <a href="">ລວມທັງຫມົດ: <br>
+                      <img src="/vendors/check.png" alt="">
+                      <h3><%= parseFloat(total.toLocaleString('la-LA')).toFixed(3) %> kip</h3>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <form action="/sales/create-sale" method="post">
+                        <input type="text" hidden name="userId" value="<%= user.id %>">
+                        <input type="number" hidden name="totalqty" value="<%= totalQty %>">
+                        <input type="number" hidden name="amount" value="<%= total %>">
+                        <button type="submit" class="btn btn-outline-primary">ກົດທີນີ້ເພຶ່ອຢື່ນຢັນການຂາຍ</button>
+                      </form>
+                    </a>                    
+                  </li>
+                </ul>         
+              <% } else { %>
+                <ul>
+                  <li>
+                    <a href="#">
+                      <img src="/vendors/images/img.jpg" alt="">
+                      <h3>ບໍ່ມີຜັກໃນກະຕາຂ່າຍເທື່ອ</h3>
+                      <p>ກະລູນາກັບໄປຫນ້າຜັກຂອງທ່ານແລ້ວກົດປູ້ມຂາຍ</p>
+                    </a>
+                  </li>
+                </ul>
+              <% } %>
           </div>
         </div>
       </div>
     </div>
-    <div class="user-info-dropdown">
-      <div class="dropdown">
-        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-          <span class="user-icon">
-            <img src="/vendors/images/photo1.jpg" alt="">
-          </span>
-          <span class="user-name">@Rixnickz</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-          <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> ຂໍ້ມູນສວນຕົວ</a>
-          <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-          <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> ຊ່ວຍເຫລືອ</a>
-          <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> ອອກຈາກລະບົບ</a>
+    <% if(typeof user.sellers !== "undefined") { %>
+      <div class="user-info-dropdown">
+        <div class="dropdown">
+          <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+            <span class="user-icon">
+              <img src="data:image/<%= user.sellers.profile.contentType %>;base64, <%= user.sellers.profile.data.toString('base64')%>" alt="">
+            </span>
+            <span class="user-name">@ <%= user.username %></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+            <a class="dropdown-item" href="#"><i class="dw dw-user1"></i> ຂໍ້ມູນສວນຕົວ</a>
+            <a class="dropdown-item" href="#"><i class="dw dw-settings2"></i> Setting</a>
+            <a class="dropdown-item" href="#"><i class="dw dw-help"></i> ຊ່ວຍເຫລືອ</a>
+            <a class="dropdown-item" href="/user/logout"><i class="dw dw-logout"></i> ອອກຈາກລະບົບ</a>
+          </div>
         </div>
       </div>
-    </div>
+    <% } else { %>
+      <div class="user-info-dropdown">
+        <div class="dropdown">
+          <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+            <span class="user-icon">
+              <img src="/vendors/images/photo1.jpg" alt=""> 
+            </span>
+            <span class="user-name">@ username</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+            <a class="dropdown-item" href="#"><i class="dw dw-user1"></i>Login</a>
+            <a class="dropdown-item" href="#"><i class="dw dw-settings2"></i>Signup</a>
+          </div>
+        </div>
+      </div>
+    <% } %>
     <!-- <div class="github-link">
       <a href="https://github.com/dropways/deskapp" target="_blank"><img src="vendors/images/github.svg" alt=""></a>
     </div> -->

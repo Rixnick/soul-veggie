@@ -20,9 +20,9 @@ const vegetableSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    qty: {
-      type: Number,
+    unit: {
       required: true,
+      type: String
     },
     status: {
       type: Boolean,
@@ -35,7 +35,15 @@ const vegetableSchema = new mongoose.Schema(
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
-    }
+    },
+    supiler: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Suppiler",
+    },
+    userproduct: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "SellerVegetable",
+    }],
   },
   { timestamps: true }
 );

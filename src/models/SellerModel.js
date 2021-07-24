@@ -2,7 +2,21 @@ const mongoose = require("mongoose");
 
 const sellerSchema = new mongoose.Schema(
   {
+    code: {
+      type: String,
+      required: true,
+      maxlength: 6,
+      minlength: 3
+    },
     name: {
+      type: String,
+      required: true,
+    },
+    surname: {
+      type: String,
+      required: true,
+    },
+    identity: {
       type: String,
       required: true,
     },
@@ -18,18 +32,10 @@ const sellerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    vegetables: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "SellerVegetable",
-      },
-    ],
-    sales: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Sale",
-      },
-    ],
+    profile: {
+      data: Buffer,
+      contentType: String
+    },
     joinAt: {
       type: Date,
       required: true,
@@ -37,6 +43,10 @@ const sellerSchema = new mongoose.Schema(
     village: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Village",
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true }

@@ -1,100 +1,166 @@
-const Seller = require('../models/SellerModel');
-const SellerVegetable = require('../models/SellerVegetable');
-const SaleModel = require('../models/SaleModel');
+const Sales = require('../models/Sales');
+const SaleItem = require('../models/SaleItems');
+const User = require('../models/UserModel');
+const Cart = require('../models/Carts');
 
-module.exports.get_sales = async (req, res, next) => {
+
+
+module.exports.get_allSales = async (req, res, next) => {
   try {
-    const sellers = await Seller.find().populate({ path: 'vegetables', model: 'SellerVegetable'});
-    // console.log(sellers)
-    res.render('Sales/Index', {
-      sellers: sellers
-    })
-  } catch (error) {
-    
-  }
-  
-}
+    const users = await User.find().populate({ path: 'sales' }).populate({ path: 'sellers' }).sort({ jointAt: 'desc'})
 
-
-module.exports.get_createSale = async (req, res) => {
-  try {
-    const { id } = req.params;
-    
-    const seller = await Seller.findById(id).populate({
-      path: "vegetables",
-      model: "SellerVegetable",
-      populate: { path: "vegetable" },
-    });
-    // console.log("Seller info:", seller);
-    // console.log(sellerVegetables.vegetable)
-
-    res.render('Sales/Create', {
-      id: seller._id,
-      name: seller.name,
-      vegetables: seller.vegetables,
+    res.render('Admin/Sales', {
+      users: users
     })
   } catch (error) {
     console.log(error)
   }
 }
 
-
-module.exports.post_createSale = async (req, res, next) => {
-  try {
-    // console.log(req.body)
-    const {desc, qty_sales, sale_amount, stock_qty} = req.body;
-    const sellerId = req.body.seller;
-    const vegetableId = req.body.vegetable;
-
-    //Check if not selecct one
-    if(!sellerId) console.log("please select Seller...");
-    if(!vegetableId) console.log("please select Vegetable...");
-
-    const mySale = await SaleModel.create({
-      seller: sellerId,
-      saleVegetable: vegetableId,
-      desc: desc,
-      qty_sale: qty_sales,
-      sale_amount: sale_amount,
-      stock_qty: stock_qty
-    })
-
-    const seller = await Seller.findById({ _id: sellerId });
-
-    if(!seller.sales){
-      seller.sales = [mySale];
-    }else{
-      seller.sales.push(mySale);
-    }
-
-    await mySale.save();
-    await seller.save();
-
-    res.redirect('/sales')
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-module.exports.get_saleReport = async (req, res) => {
+module.exports.get_saleReport = async (req, res, next) => {
   try {
     const { id } = req.params;
-    
-    const seller = await Seller.findById(id).populate({ 
-                    path: "sales",
-                    // populate: { path: "saleVegetable", model: "SellerVegetable"}
-                  });
 
-    // console.log("Seller sale: ", seller);
+    const user = await User.findById(id).populate({ path: 'sales', populate: { path: 'items'}}).sort({ createdAt: 'desc'});
 
-    res.render('Sales/Report', {
-      id: seller._id,
-      name: seller.name,
-      saleVegetables: seller.sales
+    // console.log("single user sale Report", user);
+
+    res.render('Admin/Reports', {
+      sales: user.sales
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+module.exports.get_Invoice = async (req, res, next) => {
+  try {
+
+    const { id } = req.params;
+
+    const items = await Sales.findById(id).populate({ path: 'items', populate: { path: 'vegetable'}}).sort({ createdAt: 'desc'});
+
+    res.render('Admin/Invoice', {
+      sales: items
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+//Post Create Sale Product from carts item
+module.exports.create_sale = async (req, res, next) => {
+  try {
+
+    const { amount, totalqty } = req.body;
+
+    //Check Sale date all ready create
+    const userId = req.body.userId;
+
+
+    if(!userId) console.log("Please login to processed...!");
+
+    const user = await User.findById(userId)
+                .populate({ path: 'carts', populate: { path: 'vegetable'}})
+                .populate({ path: 'sales', populate: { path: 'items'}})
+                .sort({ createdAt: 'desc'});
+
+    // console.log("User:", user);
+    //Convert Cart to SaleItem
+    const convertCartToSaleItem = async () => {
+      return Promise.all(
+        user.carts.map((cart) => 
+          SaleItem.create({
+            vegetable: cart.vegetable,
+            price: cart.price,
+            qty: cart.qty,
+            unit: cart.unit,
+            user: userId
+          })
+        )
+      );
+    }
+
+    const saleItems = await convertCartToSaleItem();
+
+    // console.log(saleItems)
+
+    const sales = await Sales.create({
+      items: saleItems.map((saleItem) => saleItem.id),
+      qty: totalqty,
+      amount: amount
     });
 
+    //Delete item from cart
+    const deleteCartItem = async () => {
+      return Promise.all(
+        user.carts.map((cart) => Cart.findByIdAndRemove(cart.id))
+      );
+    }
+
+    if(!user.sales) {
+      user.sales = [sales]
+    }else {
+      user.sales.push(sales)
+    }
+
+
+    await deleteCartItem();
+
+    await user.save()
+
+    res.redirect('/user/products');
   } catch (error) {
-    console.log(error);
+     console.log(error)
+
   }
-  
 }
+
+
+//Get User Sale Products from date
+module.exports.get_userSale = async (req, res, next) => {
+  try {
+    const user = res.locals.user;
+
+    const mySales = await User.findById(user.id)
+                    .populate({ path: 'sales', 
+                        populate: { path: 'items', 
+                            populate: { path: 'vegetable'}
+                        }
+                    })
+                    .sort({ createdAt: 'desc'});
+
+    // console.log("user sales data:", mySales)
+
+    res.render('Sales/Index', {
+      my_sales: mySales.sales
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+//User Sale Invoice
+module.exports.my_Invoice = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const user = res.locals.user;
+
+    // console.log(user)
+    const sales = await Sales.findById(id).populate({ path: 'items', populate: { path: 'vegetable'}})
+
+    // console.log("req ID:", sales);
+
+    
+    res.render('Sales/Invoice', {
+      username: user.sellers.name,
+      sales: sales,
+    })
+  } catch (error) {
+    
+  }
+}
+
+
+//Display all user Sale

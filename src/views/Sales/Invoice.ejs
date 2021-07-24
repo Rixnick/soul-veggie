@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<%- include('../Partials/Header')%>
+<body>
+  <%- include('../Partials/Navbar')%>
+  <%- include('../Partials/sellerSide')%>
+
+	<div class="main-container">
+		<div class="pd-ltr-20 xs-pd-20-10">
+			<% if(typeof sales !== "undefined") { %>
+				<div class="min-height-10px">
+					<div class="invoice-wrap">
+						<div class="invoice-box">
+							<div class="invoice-header">
+								<div class="logo text-center">
+									<img src="vendors/images/deskapp-logo.png" alt="">
+								</div>
+							</div>
+							<h4 class="text-center mb-30 weight-600">INVOICE</h4>
+							<div class="row pb-30">
+								<div class="col-md-6">
+									<h5 class="mb-15"><%= username %></h5>
+									<p class="font-14 mb-5">ວັນທີອອກໃບບີນ: <strong class="weight-600"><%= sales.createdAt.toLocaleDateString() %></strong></p>
+									<!-- <p class="font-14 mb-5">Invoice No: <strong class="weight-600">4556</strong></p> -->
+								</div>
+								<div class="col-md-6">
+									<div class="text-right">
+										<p class="font-14 mb-5"><%= username %></strong></p>
+										<p class="font-14 mb-5">ບ້ານ ດອນປ່າໃຫມ່</p>
+										<p class="font-14 mb-5">ເມືອງ ສີສັດຕະນາກ, ນະຄອນຫລວງວຽງຈັນ</p>
+										<p class="font-14 mb-5">ປ.ນ 10200</p>
+									</div>
+								</div>
+							</div>
+							<div class="invoice-desc pb-30">
+								
+									<div class="invoice-desc-head clearfix">
+										<div class="invoice-sub">ຊື່ສີນຄ້າ</div>
+										<div class="invoice-rate">ລາຄາ</div>
+										<div class="invoice-hours">ຈຳນວນ</div>
+										<div class="invoice-subtotal">ລາຄາລວມ</div>
+									</div>
+	
+	
+								<div class="invoice-desc-body">
+									<ul>
+										<% var total = 0; %>
+										<% sales.items.forEach(function(item) { %>
+										<% var sub = item.price * item.qty %>
+										<% total += +sub %>
+											<li class="clearfix">
+												<div class="invoice-sub"><%= item.vegetable.name %></div>
+												<div class="invoice-rate"><%= item.price %> k</div>
+												<div class="invoice-hours"><%= item.qty %></div>
+												<div class="invoice-subtotal"><span class="weight-600"><%= parseFloat(sub.toLocaleString('la-LA')).toFixed(3) %> k</span></div>
+											</li>
+										<% }); %>
+									</ul>
+								</div>
+								<div class="invoice-desc-footer">
+									<div class="invoice-desc-head clearfix">
+										<div class="invoice-sub">ຂໍ້ມູນການຈ່າຍ</div>
+										<div class="invoice-rate">ວັນທີ</div>
+										<div class="invoice-subtotal">ລວມທັງຫມົດ:</div>
+									</div>
+									<div class="invoice-desc-body">
+										<ul>
+											<li class="clearfix">
+												<div class="invoice-sub">
+													<p class="font-14 mb-5">ຜູ້ຮັບເງີນ: <strong class="weight-600"><%= username %></strong></p>
+													<!-- <p class="font-14 mb-5">Code: <strong class="weight-600">4556</strong></p> -->
+												</div>
+												<div class="invoice-rate font-20 weight-600"><%= sales.createdAt.toLocaleDateString() %></div>
+												<div class="invoice-subtotal">
+													<span class="weight-600 font-24 text-danger"><%= parseFloat(total.toLocaleString('la-LA')).toFixed(3) %></span>
+													<span>kip</span>
+												</div>
+												
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<h4 class="text-center pb-20">Thank You!!</h4>
+						</div>
+					</div>
+				</div>
+				<br>
+				<br>
+				<% } else { %>
+					<div class="min-height-10px">
+						<div class="invoice-wrap">
+							<div class="invoice-header">
+								<div class="logo text-center">
+									<img src="vendors/images/deskapp-logo.png" alt="">
+								</div>
+								<h4 class="text-center mb-30 weight-600">EMPTY INVOICE</h4>
+							</div>
+						</div>
+					</div>	
+					<br>
+					<br>
+				<% } %>
+		</div>
+  <%- include('../Partials/Script') %>
+</body>
+</html>

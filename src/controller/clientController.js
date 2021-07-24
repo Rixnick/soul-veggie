@@ -7,9 +7,10 @@ const qr = require('qrcode');
 
 module.exports.get_client = async (req, res) => {
   try {
-    const vegetable = await Vegetable.find();
+    const vegetable = await Vegetable.find({}).sort({ createdAt: 'desc' });
     const categories = await Category.find();
     // console.log(categories)
+    // console.log("veggies: ", vegetable)
     res.render('Index', {
       categories: categories,
       vegetables: vegetable
