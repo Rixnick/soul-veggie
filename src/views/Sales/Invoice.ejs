@@ -16,7 +16,16 @@
 									<img src="vendors/images/deskapp-logo.png" alt="">
 								</div>
 							</div>
-							<h4 class="text-center mb-30 weight-600">INVOICE</h4>
+							<div class="row pb-10">
+								<div class="col-md-4">
+									<img src="/front/img/soul_logo.jpeg" width="70" height="70" alt="">
+								</div>
+								<div class="col-md-4">
+									<h4 class="text-center mb-30 weight-600">INVOICE</h4>
+								</div>
+							</div>
+
+							
 							<div class="row pb-30">
 								<div class="col-md-6">
 									<h5 class="mb-15"><%= username %></h5>
@@ -26,9 +35,9 @@
 								<div class="col-md-6">
 									<div class="text-right">
 										<p class="font-14 mb-5"><%= username %></strong></p>
-										<p class="font-14 mb-5">ບ້ານ ດອນປ່າໃຫມ່</p>
-										<p class="font-14 mb-5">ເມືອງ ສີສັດຕະນາກ, ນະຄອນຫລວງວຽງຈັນ</p>
-										<p class="font-14 mb-5">ປ.ນ 10200</p>
+										<p class="font-14 mb-5">ເຣືອນເລກທີ 128, ຖະຫນົນດອນປ່າໃຫມ່</p>
+										<p class="font-14 mb-5">ບ້ານ ດອນປ່າໃຫມ່, ເມືອງ ສີສັດຕະນາກ</p>
+										<p class="font-14 mb-5">ແຂວງ ນະຄອນຫລວງວຽງຈັນ</p>
 									</div>
 								</div>
 							</div>
@@ -70,7 +79,7 @@
 													<p class="font-14 mb-5">ຜູ້ຮັບເງີນ: <strong class="weight-600"><%= username %></strong></p>
 													<!-- <p class="font-14 mb-5">Code: <strong class="weight-600">4556</strong></p> -->
 												</div>
-												<div class="invoice-rate font-20 weight-600"><%= sales.createdAt.toLocaleDateString() %></div>
+												<div class="invoice-rate font-20 weight-600"><%= sales.createdAt.toISOString().slice(0,10) %></div>
 												<div class="invoice-subtotal">
 													<span class="weight-600 font-24 text-danger"><%= parseFloat(total.toLocaleString('la-LA')).toFixed(3) %></span>
 													<span>kip</span>

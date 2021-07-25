@@ -23,7 +23,7 @@ module.exports.product_id = async (req, res, next) => {
     const vegetable = await Vegetable.findById({ _id: id });
     const categories = await Category.find({}).sort({ createdAt: 'desc' });
 
-    qr.toDataURL(`http://192.168.100.14:5020/products/${id}`, (err, src) => {
+    qr.toDataURL(`https://soul-veggie.info/products/${id}`, (err, src) => {
       res.render('Products/Product', {
         productId: id,
         src: src,
