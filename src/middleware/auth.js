@@ -1,12 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/UserModel");
 
-// const roles = {
-//   ADMIN: 'ADMIN',
-//   MANAGER: 'MANAGER',
-//   BASIC: 'BASIC'
-// }
-
 
 const authenticated = (req, res, next) => {
   const token = req.cookies.jwt;
@@ -58,29 +52,29 @@ const checkUser = (req, res, next) => {
 
 //setUser Role
 
-// function userRole(roles) {
-//   const token = req.cookies.jwt;
-//   return(req, res, next) => {
-//     jwt.verify(token, process.env.APP_SECRET, async (error, decodedToken) => {
-//       if(error) {
-//         console.log(error.message)
-//         res.locals.user = null;
-//         next();
-//       }else{
-//         // console.log('Decoded Info:', decodedToken);
-//         let user = await User.findById(decodedToken.id);
+function userRole(roles) {
+  const token = req.cookies.jwt;
+  return(req, res, next) => {
+    jwt.verify(token, process.env.APP_SECRET, async (error, decodedToken) => {
+      if(error) {
+        console.log(error.message)
+        res.locals.user = null;
+        next();
+      }else{
+        // console.log('Decoded Info:', decodedToken);
+        let user = await User.findById(decodedToken.id);
 
-//         console.log(user)
+        console.log(user)
         
-//         if(user.roles !== roles) {
-//           res.status(401)
-//           res.alert('Not allowed ...!')
-//         }
-//         next();
-//       }
-//     }) 
-//   }
-// }
+        if(user.roles !== roles) {
+          res.status(401)
+          res.alert('Not allowed ...!')
+        }
+        next();
+      }
+    }) 
+  }
+}
 
 
 

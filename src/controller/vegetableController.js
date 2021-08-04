@@ -139,7 +139,9 @@ module.exports.post_updateVegetable = async (req, res, next) => {
 module.exports.get_deleteVegetable = async (req, res, next) => {
   try {
     const { id } = req.params;
-    await Vegetable.remove({ _id: id })
+
+    await Vegetable.remove({ _id: id }, req.body)
+    
     res.redirect('/vegetable');
   } catch (error) {
     console.log(error)

@@ -27,7 +27,7 @@
               <div class="product-list">
                 <ul class="row">
                   <% products.forEach(function(product){%>
-                    <li class="col-lg-4 col-md-6 col-sm-12">
+                    <li class="col-lg-3 col-md-9 col-sm-12">
                       <div class="product-box">
                         <div class="producct-img">
                           <img src="data:image/<%= product.vegetable.image.contentType%>;base64, <%= product.vegetable.image.data.toString('base64')%>"  alt="">
@@ -49,7 +49,7 @@
                     <% }) %>
                 </ul>
               </div>
-              <div class="blog-pagination mb-30">
+              <!-- <div class="blog-pagination mb-30">
                 <div class="btn-toolbar justify-content-center mb-15">
                   <div class="btn-group">
                     <a href="#" class="btn btn-outline-primary prev"><i class="fa fa-angle-double-left"></i></a>
@@ -61,7 +61,7 @@
                     <a href="#" class="btn btn-outline-primary next"><i class="fa fa-angle-double-right"></i></a>
                   </div>
                 </div>
-              </div>
+              </div> -->
       <%- include('../Partials/Footer')%>
 		</div>
 	</div>

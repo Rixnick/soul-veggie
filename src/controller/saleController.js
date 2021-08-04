@@ -8,6 +8,8 @@ const Cart = require('../models/Carts');
 module.exports.get_allSales = async (req, res, next) => {
   try {
     const users = await User.find().populate({ path: 'sales' }).populate({ path: 'sellers' }).sort({ jointAt: 'desc'})
+    
+    //console.log("All user query:", users);
 
     res.render('Admin/Sales', {
       users: users
@@ -81,7 +83,11 @@ module.exports.create_sale = async (req, res, next) => {
       );
     }
 
+
     const saleItems = await convertCartToSaleItem();
+
+    //Step Update Seller Product --stock quatity****
+    
 
     // console.log(saleItems)
 

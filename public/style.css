@@ -1,0 +1,11 @@
+.body {
+    font-family: 'Times New Roman', Times, serif,
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 85.5%;
+}
+#imimgPreview {
+  margin: 20px;
+}

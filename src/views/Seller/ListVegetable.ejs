@@ -14,6 +14,7 @@
             <div class="pull-left">
               <h2 class="h4 pd-20">ລາຍການຂໍ້ມູນຜັກຂອງ <%= name %></h2>
             </div>
+              <input type="submit" hidden name="userId" value="<%= userId %>">
             <div class="pull-right">
               <a href="/seller/addsellervegetable/<%= id %>" class="btn btn-outline-primary btn-sm scroll-click" >ເພີ່ມຂໍ້ມູນຜັກໃຫ້ແມ່ຄ້າ</a>
             </div>
@@ -31,7 +32,7 @@
                 <th>ຈຳນວນທີມີ</th>
                 <th>ຫົວຫນ່ວຍ</th>
                 <th>ລາຄາຂ່າຍ</th>
-                <th>ຜັກທີຍັງເຫຼືອ</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -43,7 +44,18 @@
                   <td><%= product.qty %></td>
                   <td><%= product.unit %></td>
                   <td><%= product.price %> k</td>
-                  <td><%= product.qty %></td>
+                  <td>
+                    <div class="dropdown">
+                      <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                        <i class="dw dw-more"></i>
+                      </a>
+                          <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                            <a class="dropdown-item" href="/seller/vegetable/edit/<%= product.id %>"><i class="dw dw-edit2"></i> ແກ້ໄຂ</a>
+                            <a class="dropdown-item" href="/seller/vegetable/delete/<%= product.id %>" id="sa-params"><i class="dw dw-delete-3"></i> ລົບ</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
                 </tr>
                 <% }) %>
             </tbody>

@@ -21,8 +21,13 @@ router.post('/edit/:id', authenticated, SellerController.post_updateSeller);
 
 router.get('/addsellervegetable/:id', authenticated, SellerController.get_AddSellerVegetable);
 
-
 router.post('/add/sellervegetable', authenticated, SellerController.post_AddSellerVegetable);
+
+router.get('/vegetable/edit/:id', authenticated, SellerController.get_updateUserVegetable);
+
+router.post('/vegetable/edit/:id', authenticated, SellerController.post_updateUserVegetable);
+
+router.get('/vegetable/delete/:id', authenticated, SellerController.get_deleteSellerVegetable);
 
 
 

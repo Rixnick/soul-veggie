@@ -64,7 +64,7 @@ module.exports.post_signin = async (req, res) => {
 
 module.exports.post_signup = async (req, res) => {
   try {
-    const {username, email, password, repassword, roles} = req.body;
+    const {username, email, password, repassword} = req.body;
 
     //Check if empty fill
     if(!username || !email || !password || !repassword) {
@@ -112,7 +112,6 @@ module.exports.post_signup = async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      roles
     })
 
     await newUser.save();
@@ -124,7 +123,7 @@ module.exports.post_signup = async (req, res) => {
     res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
 
     // Redirect to user dashboard
-    res.redirect('/user/dashboard');
+    res.redirect('/user');
   } catch (error) {
     res.status(400).json({ error })
   }

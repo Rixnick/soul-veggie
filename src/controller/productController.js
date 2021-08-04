@@ -100,6 +100,8 @@ module.exports.add_cart = async (req, res, next) => {
           user.carts[findCartItemIndex].id
         ).populate({ path: 'carts'});
 
+        
+
         res.redirect('/user/products')
     }else{
        //B. the new addToCart is not in Cart yet

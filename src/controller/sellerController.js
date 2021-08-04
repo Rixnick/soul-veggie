@@ -170,6 +170,7 @@ module.exports.get_sellerId = async (req, res, next) => {
     res.render("Seller/ListVegetable", {
       id: seller._id,
       name: seller.name,
+      userId: userId,
       products: user.products,
     });
   } catch (error) {}
@@ -245,3 +246,60 @@ module.exports.post_AddSellerVegetable = async (req, res, next) => {
     console.log(error);
   }
 };
+
+
+//Update User Vegetable
+module.exports.get_updateUserVegetable = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const sellerVegetable = await SellerVegetable.findById(id).populate({ path: 'vegetable'}).populate({ path: 'user', populate: { path: 'sellers'}});
+
+    // console.log("Data:", sellerVegetable)
+ 
+    res.render('Seller/UpdateSellerVegetable', {
+      userId: sellerVegetable.user.id,
+      sellerId: sellerVegetable.user.sellers.id,
+      username: sellerVegetable.user.sellers.name,
+      vegetable: sellerVegetable.vegetable.name,
+      vegetableId: sellerVegetable.vegetable.id,
+      desc: sellerVegetable.desc,
+      unit: sellerVegetable.unit,
+      qty: sellerVegetable.qty,
+      price: sellerVegetable.price,
+      id: id
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+//Update Post Data
+module.exports.post_updateUserVegetable = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const sellerId = req.body.sellerId;
+
+    await SellerVegetable.update({ _id: id }, req.body);
+
+    res.redirect(`/seller/view/${sellerId}`)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+//GET Delete Seller Vegetable Items
+module.exports.get_deleteSellerVegetable = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await SellerVegetable.remove({ _id: id }, req.body);
+    //Show Item 
+    res.redirect('/seller')
+  } catch (error) {
+    console.log(error)
+  }
+}
